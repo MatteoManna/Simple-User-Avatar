@@ -39,7 +39,7 @@ function mm_sua_add_custom_user_profile_fields($user) {
         <tbody>
             <tr>
                 <th>
-                    <label for="mm-sua-add-media"><?php echo __('Select or remove avatar', 'mm-simple-user-avatar'); ?></label>
+                    <label for="mm-sua-add-media"><?php echo __('Avatar', 'mm-simple-user-avatar'); ?></label>
                 </th>
                 <td>
                     <input type="text" name="mm_sua_attachment_id" class="mm-sua-attachment-id" value="<?php echo $mm_sua_attachment_id; ?>" />
