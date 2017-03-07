@@ -12,11 +12,9 @@ Simple User Avatar helps users to add or remove his avatar using images from his
 
 
 
-
 == Description ==
 
 This plugin simplifies the life of WordPress users. With this plugin, users can add or remove his avatar using images from his Media Library.
-
 
 
 
@@ -25,7 +23,6 @@ This plugin simplifies the life of WordPress users. With this plugin, users can 
 1. Upload `mm-simple-user-avatar` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the "Plugins" menu in WordPress
 3. Now you have a new option in the user page
-
 
 
 
@@ -41,6 +38,7 @@ No, it's really simple. Add/Remove buttons, stop.
 
 1. Sample view of the new option in the user page.
 2. A view of the user's page list with new avatar.
+
 
 
 == Changelog ==
