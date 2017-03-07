@@ -5,7 +5,7 @@ Description: Add a <strong>user avatar</strong> using images from your Media Lib
 Author: Matteo Manna
 Version: 1.0
 Author URI: http://matteomanna.com/
-Text Domain: mmuseravatar
+Text Domain: mm-simple-user-avatar
 License: GPL2
 */
 
@@ -39,7 +39,7 @@ function mm_sua_add_custom_user_profile_fields($user) {
         <tbody>
             <tr>
                 <th>
-                    <label for="mm-sua-add-media"><?php echo __('Select or remove avatar', 'mmuseravatar'); ?></label>
+                    <label for="mm-sua-add-media"><?php echo __('Select or remove avatar', 'mm-simple-user-avatar'); ?></label>
                 </th>
                 <td>
                     <input type="text" name="mm_sua_attachment_id" class="mm-sua-attachment-id" value="<?php echo $mm_sua_attachment_id; ?>" />
@@ -103,6 +103,7 @@ function mm_sua_get_new_avatar( $avatar = '', $id_or_email ) {
     if( empty($image) ) $avatar = '';
 
     $avatar = preg_replace('/src=("|\').*?("|\')/i', 'src="'.$image.'"', $avatar);
+    $avatar = preg_replace('/srcset=("|\').*?("|\')/i', 'srcset="'.$image.'"', $avatar);
     return $avatar;
 }
 add_filter( 'get_avatar', 'mm_sua_get_new_avatar', 5, 5 );
