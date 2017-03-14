@@ -1,4 +1,4 @@
-=== MM Starter Kit ===
+=== Simple User Avatar ===
 
 Contributors: Matteo Manna
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=matteomanna87%40gmail%2ecom
