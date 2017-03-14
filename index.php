@@ -3,7 +3,7 @@
 Plugin Name: Simple User Avatar
 Description: Add a <strong>user avatar</strong> using images from your Media Library.
 Author: Matteo Manna
-Version: 1.0
+Version: 1.1
 Author URI: http://matteomanna.com/
 Text Domain: mm-simple-user-avatar
 License: GPL2
@@ -11,8 +11,8 @@ License: GPL2
 
 function mm_sua_admin_head_scripts() {
     wp_enqueue_media();
-    wp_enqueue_style('mm-css-style', plugins_url().'/mm-simple-user-avatar/css/style.css', array(), null);
-    wp_enqueue_script('mm-js-custom', plugins_url().'/mm-simple-user-avatar/js/scripts.js', array(), '1.0', true);
+    wp_enqueue_style('mm-css-style', plugins_url('css/style.css', __FILE__), array(), null);
+    wp_enqueue_script('mm-js-custom', plugins_url('js/scripts.js', __FILE__), array(), '1.1', true);
 }
 add_action( 'admin_enqueue_scripts', 'mm_sua_admin_head_scripts' );
 
@@ -23,8 +23,17 @@ add_action( 'admin_enqueue_scripts', 'mm_sua_admin_head_scripts' );
 function mm_sua_update_custom_user_profile($user_id) {
     if( !current_user_can('edit_user', $user_id) ) return FALSE;
 
-    delete_user_meta( $user_id, 'mm_sua_attachment_id') ;
-    if( isset($_POST['mm_sua_attachment_id']) && $_POST['mm_sua_attachment_id'] > 0 ) add_user_meta( $user_id, 'mm_sua_attachment_id', $_POST['mm_sua_attachment_id'] );
+    delete_user_meta( (int)$user_id, 'mm_sua_attachment_id') ; //delete meta
+
+    if( //validate POST data
+        isset($_POST['mm_sua_attachment_id'])
+        && is_numeric($_POST['mm_sua_attachment_id'])
+        && $_POST['mm_sua_attachment_id'] > 0
+    ) {
+        add_user_meta( (int)$user_id, 'mm_sua_attachment_id', (int)$_POST['mm_sua_attachment_id'] ); //add user meta
+    } else {
+        return FALSE;
+    }
 }
 add_action( 'personal_options_update', 'mm_sua_update_custom_user_profile' );
 add_action( 'edit_user_profile_update', 'mm_sua_update_custom_user_profile' );
@@ -42,13 +51,13 @@ function mm_sua_add_custom_user_profile_fields($user) {
                     <label for="mm-sua-add-media"><?php echo __('Avatar', 'mm-simple-user-avatar'); ?></label>
                 </th>
                 <td>
-                    <input type="text" name="mm_sua_attachment_id" class="mm-sua-attachment-id" value="<?php echo $mm_sua_attachment_id; ?>" />
+                    <input type="number" name="mm_sua_attachment_id" class="mm-sua-attachment-id" value="<?php echo $mm_sua_attachment_id; ?>" />
                     <div class="mm-sua-attachment-image">
                         <?php echo get_avatar($user->ID); ?>
                     </div>
                     <div class="wp-media-buttons">
-                        <button class="button mm-sua-add-media" id="mm-sua-add-media"><?php echo __('Select'); ?></button>
-                        <button class="button mm-sua-remove-media"><?php echo __('Remove'); ?></button>
+                        <button class="button mm-sua-add-media" id="mm-sua-add-media"><?php echo __('Select', 'mm-simple-user-avatar'); ?></button>
+                        <button class="button mm-sua-remove-media"><?php echo __('Remove', 'mm-simple-user-avatar'); ?></button>
                     </div>
                 </td>
             </tr>

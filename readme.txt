@@ -47,3 +47,9 @@ No, it's really simple. Add/Remove buttons, stop.
 *Release Date - 7 March 2017*
 
 * Improved layout
+
+= 1.1 =
+*Release Date - 14 March 2017*
+
+* Folder name now is a var
+* Validate POST calls
