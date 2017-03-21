@@ -50,6 +50,10 @@ No, it's really simple. Add/Remove buttons, stop.
 
 == Changelog ==
 
+= 1.2 =
+* Release Date - 21 March 2017
+* Text Domain changed
+
 = 1.1 =
 * Release Date - 14 March 2017
 * Folder name now is a var

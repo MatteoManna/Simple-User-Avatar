@@ -3,16 +3,16 @@
 Plugin Name: Simple User Avatar
 Description: Add a <strong>user avatar</strong> using images from your Media Library.
 Author: Matteo Manna
-Version: 1.1
+Version: 1.2
 Author URI: http://matteomanna.com/
-Text Domain: mm-simple-user-avatar
+Text Domain: simple-user-avatar
 License: GPL2
 */
 
 function mm_sua_admin_head_scripts() {
     wp_enqueue_media();
-    wp_enqueue_style('mm-css-style', plugins_url('css/style.css', __FILE__), array(), null);
-    wp_enqueue_script('mm-js-custom', plugins_url('js/scripts.js', __FILE__), array(), '1.1', true);
+    wp_enqueue_style('sua-css-style', plugins_url('css/style.css', __FILE__), array(), null);
+    wp_enqueue_script('sua-js-custom', plugins_url('js/scripts.js', __FILE__), array(), '1.2', true);
 }
 add_action( 'admin_enqueue_scripts', 'mm_sua_admin_head_scripts' );
 
@@ -50,7 +50,7 @@ function mm_sua_add_custom_user_profile_fields($user) {
         <tbody>
             <tr>
                 <th>
-                    <label for="mm-sua-add-media"><?php echo __('Avatar', 'mm-simple-user-avatar'); ?></label>
+                    <label for="mm-sua-add-media"><?php echo __('Avatar', 'simple-user-avatar'); ?></label>
                 </th>
                 <td>
                     <input type="number" name="mm_sua_attachment_id" class="mm-sua-attachment-id" value="<?php echo $mm_sua_attachment_id; ?>" />
@@ -58,8 +58,8 @@ function mm_sua_add_custom_user_profile_fields($user) {
                         <?php echo get_avatar($user->ID); ?>
                     </div>
                     <div class="wp-media-buttons">
-                        <button class="button mm-sua-add-media" id="mm-sua-add-media"><?php echo __('Select', 'mm-simple-user-avatar'); ?></button>
-                        <button class="button mm-sua-remove-media"><?php echo __('Remove', 'mm-simple-user-avatar'); ?></button>
+                        <button class="button mm-sua-add-media" id="mm-sua-add-media"><?php echo __('Select', 'simple-user-avatar'); ?></button>
+                        <button class="button mm-sua-remove-media"><?php echo __('Remove', 'simple-user-avatar'); ?></button>
                     </div>
                 </td>
             </tr>
