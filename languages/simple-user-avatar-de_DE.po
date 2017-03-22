@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple User Avatar\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-22 12:18+0000\n"
+"PO-Revision-Date: 2017-03-22 13:47+0000\n"
+"Last-Translator: matteomanna <matteomanna87@gmail.com>\n"
+"Language-Team: German\n"
+"Language: de-DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: index.php:58
+msgid "Avatar"
+msgstr "Avatar"
+
+#: index.php:66
+msgid "Select"
+msgstr "Auswählen"
+
+#: index.php:67
+msgid "Remove"
+msgstr "Entfernen"
+
+#. Name of the plugin
+msgid "Simple User Avatar"
+msgstr "Simple User Avatar"
+
+#. Description of the plugin
+msgid ""
+"Add a <strong>user avatar</strong> using images from your Media Library."
+msgstr ""
+"Fügen Sie einen <strong>Avatar</strong> zu ihren Benutzer unter Verwendung "
+"der Bilder von Ihrer Medienbibliothek."
+
+#. Author of the plugin
+msgid "Matteo Manna"
+msgstr "Matteo Manna"
+
+#. Author URI of the plugin
+msgid "http://matteomanna.com/"
+msgstr "http://matteomanna.com/"
