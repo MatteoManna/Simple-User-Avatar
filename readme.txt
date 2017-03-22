@@ -50,6 +50,10 @@ No, it's really simple. Add/Remove buttons, stop.
 
 == Changelog ==
 
+= 1.3 =
+* Release Date - 22 March 2017
+* Added load_plugin_textdomain() function and POT file
+
 = 1.2 =
 * Release Date - 21 March 2017
 * Text Domain changed

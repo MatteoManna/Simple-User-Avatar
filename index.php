@@ -3,16 +3,21 @@
 Plugin Name: Simple User Avatar
 Description: Add a <strong>user avatar</strong> using images from your Media Library.
 Author: Matteo Manna
-Version: 1.2
+Version: 1.3
 Author URI: http://matteomanna.com/
 Text Domain: simple-user-avatar
 License: GPL2
 */
 
+function mm_sua_load_textdomain() {
+    load_plugin_textdomain( 'simple-user-avatar', false, basename( dirname( __FILE__ ) ).'/languages' );
+}
+add_action( 'init', 'mm_sua_load_textdomain' );
+
 function mm_sua_admin_head_scripts() {
     wp_enqueue_media();
     wp_enqueue_style('sua-css-style', plugins_url('css/style.css', __FILE__), array(), null);
-    wp_enqueue_script('sua-js-custom', plugins_url('js/scripts.js', __FILE__), array(), '1.2', true);
+    wp_enqueue_script('sua-js-custom', plugins_url('js/scripts.js', __FILE__), array(), '1.3', true);
 }
 add_action( 'admin_enqueue_scripts', 'mm_sua_admin_head_scripts' );
 
