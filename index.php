@@ -55,7 +55,7 @@ function mm_sua_add_custom_user_profile_fields($user) {
         <tbody>
             <tr>
                 <th>
-                    <label for="mm-sua-add-media"><?php echo __('Avatar', 'simple-user-avatar'); ?></label>
+                    <label for="mm-sua-add-media"><?php _e('Avatar', 'simple-user-avatar'); ?></label>
                 </th>
                 <td>
                     <input type="number" name="mm_sua_attachment_id" class="mm-sua-attachment-id" value="<?php echo $mm_sua_attachment_id; ?>" />
@@ -63,8 +63,8 @@ function mm_sua_add_custom_user_profile_fields($user) {
                         <?php echo get_avatar($user->ID); ?>
                     </div>
                     <div class="wp-media-buttons">
-                        <button class="button mm-sua-add-media" id="mm-sua-add-media"><?php echo __('Select', 'simple-user-avatar'); ?></button>
-                        <button class="button mm-sua-remove-media"><?php echo __('Remove', 'simple-user-avatar'); ?></button>
+                        <button class="button mm-sua-add-media" id="mm-sua-add-media"><?php _e('Select', 'simple-user-avatar'); ?></button>
+                        <button class="button mm-sua-remove-media"><?php _e('Remove', 'simple-user-avatar'); ?></button>
                     </div>
                 </td>
             </tr>
