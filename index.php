@@ -9,6 +9,8 @@ Text Domain: simple-user-avatar
 License: GPL2
 */
 
+if( !defined('ABSPATH') ) exit; // Injection prevention
+
 function mm_sua_load_textdomain() {
     load_plugin_textdomain( 'simple-user-avatar', false, basename( dirname( __FILE__ ) ).'/languages' );
 }
