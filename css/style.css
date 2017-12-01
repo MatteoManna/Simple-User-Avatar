@@ -1,20 +1,29 @@
 @charset "UTF-8";
 
+table.form-table tr.user-profile-picture,
 input.mm-sua-attachment-id {
     display: none;
 }
 
 div.mm-sua-attachment-image img {
-    width: 96px;
-    height: auto;
+    background-color: white;
     border: 1px solid #e1e1e1;
-    padding: 3px;
-    background-color: #fff;
     border-radius: 2px;
-    margin-bottom: 10px;
     cursor: pointer;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 3px;
+    width: 96px;
 }
 
-table.form-table tr.user-profile-picture {
-    display: none;
+button.button.mm-sua-remove-media:hover,
+button.button.mm-sua-remove-media {
+    background-color: #990000;
+    border-color: #560303;
+    box-shadow: 0 1px 0 #560303;
+    color: white;
+}
+
+button.button.mm-sua-remove-media:hover {
+    background-color: #b40000;
 }

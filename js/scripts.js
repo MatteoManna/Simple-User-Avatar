@@ -34,7 +34,10 @@ function simpleUserAvatar() {
         wpMediaEditor();
     });
 
-    if( jQuery('input.mm-sua-attachment-id').val() == 0 ) buttonRemove.css('display', 'none');
+    if(
+        jQuery('input.mm-sua-attachment-id').val() === 0
+        || !jQuery('div.mm-sua-attachment-image img').length
+    ) buttonRemove.css( 'display', 'none' );
 }
 
 jQuery(document).ready(function() {

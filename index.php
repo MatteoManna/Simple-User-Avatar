@@ -3,7 +3,7 @@
 Plugin Name: Simple User Avatar
 Description: Add a <strong>user avatar</strong> using images from your Media Library.
 Author: Matteo Manna
-Version: 1.6
+Version: 1.7
 Author URI: http://matteomanna.com/
 Text Domain: simple-user-avatar
 License: GPL2
@@ -122,6 +122,7 @@ function mm_sua_get_new_avatar( $avatar = '', $id_or_email ) {
 
     $avatar = preg_replace('/src=("|\').*?("|\')/i', 'src="'.$image.'"', $avatar);
     $avatar = preg_replace('/srcset=("|\').*?("|\')/i', 'srcset="'.$image.'"', $avatar);
+
     return $avatar;
 }
 add_filter( 'get_avatar', 'mm_sua_get_new_avatar', 5, 5 );
