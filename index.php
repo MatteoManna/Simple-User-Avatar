@@ -3,7 +3,7 @@
 Plugin Name: Simple User Avatar
 Description: Add a <strong>user avatar</strong> using images from your Media Library.
 Author: Matteo Manna
-Version: 1.7
+Version: 1.8
 Author URI: http://matteomanna.com/
 Text Domain: simple-user-avatar
 License: GPL2

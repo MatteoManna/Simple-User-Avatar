@@ -4,8 +4,8 @@ Contributors: matteomanna
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=matteomanna87%40gmail%2ecom
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
-Tested up to: 4.9
-Stable tag: 1.7
+Tested up to: 5.0
+Stable tag: 1.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,10 @@ No, it's really simple. Add/Remove buttons, stop.
 
 
 == Changelog ==
+
+= 1.8 =
+* Release Date - 14rd December 2018
+* Support for WordPress 5.0.1
 
 = 1.7 =
 * Release Date - 1st December 2017
