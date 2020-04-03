@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=matte
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,10 @@ No, it's really simple. Add/Remove buttons, stop.
 
 
 == Changelog ==
+
+= 2.2 =
+* Release Date - 1st April 2020
+* Fix for PHP 7.4.4
 
 = 2.1 =
 * Release Date - 1st April 2020
