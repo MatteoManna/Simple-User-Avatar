@@ -84,7 +84,7 @@ add_action( 'edit_user_profile', 'mm_sua_add_custom_user_profile_fields' );
  */
 function mm_sua_get_attachment_url( $attachment_id = 0, $size = 'thumbnail' ) {
     $image = wp_get_attachment_image_src( (int)$attachment_id, $size );
-    return $image[0];
+    return ( isset($image[0]) ) ? $image[0] : null ;
 }
 
 /**
@@ -116,7 +116,7 @@ function mm_sua_get_new_avatar( $avatar = '', $id_or_email ) {
 
     $mm_sua_attachment_id = (int)get_user_meta( (int)$user_id, 'mm_sua_attachment_id', true );
     $image = mm_sua_get_attachment_url( (int)$mm_sua_attachment_id, 'thumbnail' );
-    if( empty($image) ) $avatar = '';
+    if( is_null($image) ) $avatar = '';
 
     $avatar = preg_replace( '/src=("|\').*?("|\')/i', 'src="'. $image .'"', $avatar );
     $avatar = preg_replace( '/srcset=("|\').*?("|\')/i', 'srcset="'. $image .'"', $avatar );
