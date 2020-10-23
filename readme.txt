@@ -50,6 +50,10 @@ No, it's really simple. Add/Remove buttons, stop.
 
 == Changelog ==
 
+= 2.3 =
+* Release Date - 23rd October 2020
+* Support for WordPress 5.5
+
 = 2.2 =
 * Release Date - 1st April 2020
 * Fix for PHP 7.4.4
