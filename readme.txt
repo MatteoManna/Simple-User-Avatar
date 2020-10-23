@@ -4,8 +4,8 @@ Contributors: matteomanna
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=matteomanna87%40gmail%2ecom
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 2.2
+Tested up to: 5.5
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
