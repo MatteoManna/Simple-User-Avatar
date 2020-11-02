@@ -5,7 +5,7 @@
  * Plugin Name: Simple User Avatar
  * Plugin URI: https://wordpress.org/plugins/simple-user-avatar/
  * Description: Add a <strong>user avatar</strong> using images from your Media Library.
- * Version: 2.4
+ * Version: 2.5
  * Author: Matteo Manna
  * Author URI: https://matteomanna.com/
  * License: GPL2
@@ -21,8 +21,8 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
 
     class SimpleUserAvatar {
 
-        private static $plugin_version = '2.4';
-        private static $is_notice_active = true;
+        private static $plugin_version  = '2.5';
+        private static $transient_name    = 'sua_notice_is_expired';
 
         public static function init() {
             new self;
@@ -40,22 +40,24 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
             add_action( 'personal_options_update', [ $this, 'update_custom_user_profile_fields' ] );
             add_action( 'edit_user_profile_update', [ $this, 'update_custom_user_profile_fields' ] );
 
+            // HTML render of notice
+            add_action( 'admin_notices', [ $this, 'custom_admin_notice' ] );
+
+            // Post call to close notice
+            add_action( 'admin_post_close_notice', [ $this, 'post_close_notice' ] );
+
             // Override WP function get_avatar()
             add_filter( 'get_avatar', [ $this, 'override_get_avatar' ], 5, 5 );
-
-            // If notice is active, I create a new object
-            if( static::$is_notice_active == true )
-                new SimpleUserAvatar_notice();
         }
 
+        /**
+         *
+         * WP enqueue media, required
+         * Then CSS and Javascript
+         */
         public static function custom_admin_enqueue_scripts() {
-            // WP enqueue media, required
             wp_enqueue_media();
-
-            // CSS
             wp_enqueue_style( 'sua', plugins_url('css/style.css', __FILE__), [], static::$plugin_version, 'all' );
-
-            // JS
             wp_enqueue_script( 'sua', plugins_url('js/scripts.js', __FILE__), [], static::$plugin_version, true );
         }
 
@@ -104,61 +106,8 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
             return true;
         }
 
-        public static function override_get_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
-            // Get user ID
-            if ( is_numeric($id_or_email) ) :
-                $user_id = (int)$id_or_email;
-            elseif ( is_string($id_or_email) ) :
-                $user = get_user_by( 'email', $id_or_email );
-                $user_id = (int)$user->id;
-            elseif ( is_object($id_or_email) ) :
-                $user_id = (int)$id_or_email->user_id;
-            endif;
-
-            // Get attachment_meta
-            $attachment_id = get_user_meta( (int)$user_id, 'mm_sua_attachment_id', true );
-            if( empty($attachment_id) )
-                return $avatar;
-
-            // Get attachment src
-            $src = self::get_attachment_url( (int)$attachment_id, 'thumbnail' );
-            if( is_null($src) )
-                return $avatar;
-
-            // Override WP urls
-            $avatar = preg_replace( '/src=("|\').*?("|\')/', "src='{$src}'", $avatar );
-            $avatar = preg_replace( '/srcset=("|\').*?("|\')/', "srcset='{$src}'", $avatar );
-
-            return $avatar;
-        }
-
-        private static function get_attachment_url( $attachment_id = 0, $size = 'thumbnail' ) {
-            // Get attachment_src
-            $src = wp_get_attachment_image_src( (int)$attachment_id, $size );
-
-            return ( isset($src[0]) && !empty($src[0]) && is_string($src[0]) ) ? esc_url( $src[0] ) : null ;
-        }
-
-    }
-
-    class SimpleUserAvatar_notice extends SimpleUserAvatar {
-
-        private static $transient_id = 'sua_notice_is_expired';
-
-        public static function init() {
-            new self;
-        }
-
-        public function __construct() {
-            // HTML render of notice
-            add_action( 'admin_notices', [ $this, 'custom_admin_notice' ] );
-
-            // Close notice
-            add_action( 'admin_post_close_notice', [ $this, 'close_notice' ] );
-        }
-
         public static function custom_admin_notice() {
-            $notice_is_expired = get_transient( static::$transient_id );
+            $notice_is_expired = get_transient( static::$transient_name );
 
             if (
                 !empty($notice_is_expired)
@@ -188,13 +137,13 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
             endif;
         }
 
-        public static function close_notice() {
+        public static function post_close_notice() {
             if ( wp_verify_nonce( $_POST['_wpnonce'], get_bloginfo('name') ) ) :
                 // Number of days
                 $days = 30;
 
                 // Transient settings
-                $transient = static::$transient_id;
+                $transient = static::$transient_name;
                 $value = 1;
                 $expiration = ( (60 * 60) * 24 ) * $days;
 
@@ -202,6 +151,34 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
             endif;
 
             exit( wp_safe_redirect( $_POST['_wp_http_referer'] ) );
+        }
+
+        public static function override_get_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
+            // Get user ID
+            if ( is_numeric($id_or_email) ) :
+                $user_id = (int)$id_or_email;
+            elseif ( is_string($id_or_email) ) :
+                $user = get_user_by( 'email', $id_or_email );
+                $user_id = (int)$user->ID;
+            elseif ( is_object($id_or_email) ) :
+                $user_id = (int)$id_or_email->user_id;
+            endif;
+
+            // Get attachment_meta
+            $attachment_id = get_user_meta( (int)$user_id, 'mm_sua_attachment_id', true );
+            if( empty($attachment_id) )
+                return $avatar;
+
+            // Get attachment url
+            $attachment_url = wp_get_attachment_url( (int)$attachment_id );
+            if( empty($attachment_url) )
+                return $avatar;
+
+            // Override WP urls
+            $avatar = preg_replace( '/src=("|\').*?("|\')/', "src='{$attachment_url}'", $avatar );
+            $avatar = preg_replace( '/srcset=("|\').*?("|\')/', "srcset='{$attachment_url}'", $avatar );
+
+            return $avatar;
         }
 
     }
