@@ -1,11 +1,15 @@
-@charset "UTF-8";
+@charset "utf-8";
 
 table.form-table tr.user-profile-picture,
 input.mm-sua-attachment-id {
     display: none;
 }
 
-div.mm-sua-attachment-image img {
+figure.mm-sua-attachment-image {
+    margin: 0;
+}
+
+figure.mm-sua-attachment-image img {
     background-color: white;
     border: 1px solid #e1e1e1;
     border-radius: 2px;
@@ -26,4 +30,9 @@ button.button.mm-sua-remove-media {
 
 button.button.mm-sua-remove-media:hover {
     background-color: #b40000;
+}
+
+.mm-sua-notice {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

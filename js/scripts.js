@@ -2,8 +2,8 @@ function wpMediaEditor() {
     wp.media.editor.open();
     wp.media.editor.send.attachment = function(props, attachment) {
         jQuery('input.mm-sua-attachment-id').val(attachment.id);
-        jQuery('div.mm-sua-attachment-image img').remove();
-        jQuery('div.mm-sua-attachment-image').append(
+        jQuery('figure.mm-sua-attachment-image img').remove();
+        jQuery('figure.mm-sua-attachment-image').append(
             jQuery('<img>').attr({
                 'src': attachment.sizes.thumbnail.url,
                 'class': 'mm-sua-attachment-thumb',
@@ -26,17 +26,17 @@ function simpleUserAvatar() {
     buttonRemove.on('click', function(event) {
         event.preventDefault();
         jQuery('input.mm-sua-attachment-id').val(0);
-        jQuery('div.mm-sua-attachment-image img').remove();
+        jQuery('figure.mm-sua-attachment-image img').remove();
         jQuery(this).fadeOut(250);
     });
 
-    jQuery(document).on('click', 'div.mm-sua-attachment-image img', function() {
+    jQuery(document).on('click', 'figure.mm-sua-attachment-image img', function() {
         wpMediaEditor();
     });
 
     if(
         jQuery('input.mm-sua-attachment-id').val() === 0
-        || !jQuery('div.mm-sua-attachment-image img').length
+        || !jQuery('figure.mm-sua-attachment-image img').length
     ) buttonRemove.css( 'display', 'none' );
 }
 

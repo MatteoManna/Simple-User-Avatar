@@ -1,11 +1,11 @@
 === Simple User Avatar ===
 
 Contributors: matteomanna
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=matteomanna87%40gmail%2ecom
+Donate link: https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
 Tested up to: 5.5
-Stable tag: 2.3
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,12 @@ No, it's really simple. Add/Remove buttons, stop.
 
 
 == Changelog ==
+
+= 2.4 =
+* Release Date - 2nd November 2020
+* New PHP Class called `SimpleUserAvatar`
+* New notice in PHP Class called `SimpleUserAvatar_notice`
+* Removed folder `languages`
 
 = 2.3 =
 * Release Date - 23rd October 2020
