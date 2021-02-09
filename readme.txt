@@ -50,6 +50,10 @@ No, it's really simple. Add/Remove buttons, stop.
 
 == Changelog ==
 
+= 2.7 =
+* Release Date - 9th February 2021
+* Reduced size of the donation banner 
+
 = 2.6 =
 * Release Date - 9th December 2020
 * Support for WordPress 5.6

@@ -5,7 +5,7 @@
  * Plugin Name: Simple User Avatar
  * Plugin URI: https://wordpress.org/plugins/simple-user-avatar/
  * Description: Add a <strong>user avatar</strong> using images from your Media Library.
- * Version: 2.6
+ * Version: 2.7
  * Author: Matteo Manna
  * Author URI: https://matteomanna.com/
  * License: GPL2
@@ -21,7 +21,7 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
 
     class SimpleUserAvatar {
 
-        private static $plugin_version  = '2.5';
+        private static $plugin_version  = '2.7';
         private static $transient_name    = 'sua_notice_is_expired';
 
         public static function init() {
@@ -124,7 +124,7 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
                 ?>
                 <div class="notice notice-info mm-sua-notice">
                     <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
-                        <p><?php printf( __( 'Dear <strong>%s</strong>,<br /><strong>thanks</strong> for using my plugin <strong>Simple User Avatar</strong>!<br />To <strong>support</strong> the development, also in the future, I invite you to support me. Even a small amount, such as <strong>1$</strong>, will be greatly appreciated.<br /><br />Thank you very much,<br />Matteo', 'simple-user-avatar' ), $current_user->display_name ); ?></p>
+                        <p><?php printf( __( 'Dear <strong>%s</strong>,<br /><strong>thanks</strong> for using my plugin <strong>Simple User Avatar</strong>! To <strong>support</strong> the development, also in the future, I invite you to support me. Even a small amount, such as <strong>1$</strong>, will be greatly appreciated. Thank you very much, Matteo.', 'simple-user-avatar' ), $current_user->display_name ); ?></p>
                         <div>
                             <a href="https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom" class="button button-primary" target="_blank"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
                             <button type="submit" class="button"><?php _e( 'Close', 'simple-user-avatar' ); ?></button>
