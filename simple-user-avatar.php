@@ -22,7 +22,7 @@ if ( !class_exists( 'SimpleUserAvatar' ) ) :
     class SimpleUserAvatar {
 
         private static $plugin_version  = '2.7';
-        private static $transient_name    = 'sua_notice_is_expired';
+        private static $transient_name  = 'sua_notice_is_expired';
 
         public static function init() {
             new self;
