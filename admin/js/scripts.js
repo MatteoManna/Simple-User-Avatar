@@ -1,22 +1,22 @@
 (function( $ ) {
 
-	'use strict';
+    'use strict';
 
-    /*
-     * Open WP Media editor
-     *
-     * @since 1.0
-     */
+	/*
+	 * Open WP Media editor
+	 *
+	 * @since 1.0
+	 */
     function wpMediaEditor() {
 
 		// Open WordPress Media Library
-        wp.media.editor.open();
+		wp.media.editor.open();
 
 		// On click
-        wp.media.editor.send.attachment = function( props, attachment ) {
+		wp.media.editor.send.attachment = function( props, attachment ) {
 
 			// Set attachment_id value
-            $('.sua__attachment--id').val( attachment.id );
+			$('.sua__attachment--id').val( attachment.id );
 
 			// Change the image attributes
 			$('.sua__attachment--figure')
@@ -31,44 +31,44 @@
 			$('.sua__attachment--figcaption').addClass('hidden');
 
 			// Show remove button
-            $('#btn-media-remove').removeClass('hidden');
+			$('#btn-media-remove').removeClass('hidden');
 
-        };
+		};
 
     }
 
-    /*
-     * Init basic functions for two buttons (add and remove)
-     *
-     * @since 1.0
-     */
-    function initSimpleUserAvatar() {
+	/*
+	 * Init basic functions for two buttons (add and remove)
+	 *
+	 * @since 1.0
+	 */
+	 function initSimpleUserAvatar() {
 
 		// If attachment_id is empty
-        if( $('.sua__attachment--id').val() == '' ) {
+		if( $('.sua__attachment--id').val() == '' ) {
 
 			// Hide remove button
-            $('#btn-media-remove').addClass('hidden');
+			$('#btn-media-remove').addClass('hidden');
 
-        } else {
+		} else {
 
 			// Hide caption for default avatar
 			$('.sua__attachment--figcaption').addClass('hidden');
 
 		}
 
-        $(document)
-            .on( 'click', '#btn-media-add', function( event ) {
+		$(document)
+			.on( 'click', '#btn-media-add', function( event ) {
 
-                event.preventDefault();
+				event.preventDefault();
 
 				// Open WordPress Media Library
-                wpMediaEditor();
+				wpMediaEditor();
 
-            })
-            .on( 'click', '#btn-media-remove', function( event ) {
+			})
+			.on( 'click', '#btn-media-remove', function( event ) {
 
-                event.preventDefault();
+				event.preventDefault();
 
 				// Get default URL
 				var defaultUrl = $('.sua__attachment--figure').data( 'default_url' );
@@ -90,13 +90,13 @@
 				// Hide remove button
 				$(this).addClass('hidden');
 
-            })
-            .on('click', '.sua__attachment--figure img', function() {
+			})
+			.on('click', '.sua__attachment--figure img', function() {
 
 				// Trigger to button
 				$('#btn-media-add').trigger( 'click' );
 
-            });
+			});
 
     }
 
@@ -105,8 +105,8 @@
 	 *
 	 * @since 2.8
 	 */
-    $(function() {
-        initSimpleUserAvatar();
-    });
+	$(function() {
+		initSimpleUserAvatar();
+	});
 
 })( jQuery );
