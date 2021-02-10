@@ -2,18 +2,18 @@
 
 /* Hide WP default avatar */
 table.form-table tr.user-profile-picture,
-input.mm-sua-attachment-id {
+.sua__attachment--id {
     display: none;
 }
 
 /* Set style for avatar figure, figcaption and image */
-figure.mm-sua-attachment-image {
+.sua__attachment--figure {
     margin: 0;
 }
 
-figure.mm-sua-attachment-image img {
+.sua__attachment--figure > img {
     width: 96px;
-    height: auto;
+    height: 96px;
     background-color: white;
     border: 1px solid #e1e1e1;
     border-radius: 2px;
@@ -22,24 +22,20 @@ figure.mm-sua-attachment-image img {
     margin-bottom: 10px;
 }
 
-figure.mm-sua-attachment-image figcaption {
+.sua__attachment--figcaption {
     margin-bottom: 10px;
     color: #666;
 }
 
 /* Set style for remove button */
-button#mm-sua-remove-media:hover,
-button#mm-sua-remove-media {
+#btn-media-remove,
+#btn-media-remove:hover {
     background-color: #990000;
     border-color: #560303;
     box-shadow: 0 1px 0 #560303;
     color: white;
 }
 
-button#mm-sua-remove-media:hover {
+#btn-media-remove:hover {
     background-color: #b40000;
-}
-
-.hidden {
-    display: none;
 }

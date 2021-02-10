@@ -90,26 +90,23 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
             $attachment_id = get_user_meta( $user->ID, SUA_USER_META_KEY, true );
 
             // Get default WordPress avatar URL using user email
-            $avatar_default_url = $this->get_default_avatar_url_by_email( $user->user_email );
+            $default_url = $this->get_default_avatar_url_by_email( $user->user_email );
             ?>
-            <input type="number" name="<?php echo SUA_USER_META_KEY; ?>" class="mm-sua-attachment-id" value="<?php echo $attachment_id; ?>" />
+            <input type="number" name="<?php echo SUA_USER_META_KEY; ?>" class="sua__attachment--id" value="<?php echo $attachment_id; ?>" />
             <table class="form-table">
                 <tbody>
                     <tr>
                         <th>
-                            <label for="mm-sua-add-media"><?php _e('Profile Picture', 'simple-user-avatar'); ?></label>
+                            <label for="btn-media-add"><?php _e('Profile Picture', 'simple-user-avatar'); ?></label>
                         </th>
                         <td>
-                            <figure class="mm-sua-attachment-image sua">
+                            <figure class="sua__attachment--figure" data-default_url="<?php echo $default_url; ?>">
                                 <?php echo get_avatar( $user->ID, 96 ); ?>
-                            </figure>
-                            <figure class="mm-sua-attachment-image default hidden">
-                                <img src="<?php echo $avatar_default_url; ?>" srcset="<?php echo $avatar_default_url; ?>" class="avatar avatar-96 photo" height="96" width="96" loading="lazy" />
-                                <figcaption><?php _e('You\'re seeing the default profile picture.', 'simple-user-avatar'); ?></figcaption>
+                                <figcaption class="sua__attachment--figcaption"><?php _e('You\'re seeing the default profile picture.', 'simple-user-avatar'); ?></figcaption>
                             </figure>
                             <div>
-                                <button class="button" id="mm-sua-add-media"><?php _e('Select', 'simple-user-avatar'); ?></button>
-                                <button class="button" id="mm-sua-remove-media"><?php _e('Remove', 'simple-user-avatar'); ?></button>
+                                <button class="button" id="btn-media-add"><?php _e('Select', 'simple-user-avatar'); ?></button>
+                                <button class="button" id="btn-media-remove"><?php _e('Remove', 'simple-user-avatar'); ?></button>
                             </div>
                         </td>
                     </tr>

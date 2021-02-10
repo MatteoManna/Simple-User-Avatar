@@ -51,7 +51,7 @@ No, it's really simple. Add/Remove buttons, stop.
 == Changelog ==
 
 = 2.8 =
-* Release Date - 
+* Release Date - 10th February 2021
 * Get default WordPress avatar when users doesn't use custom avatar
 
 = 2.7 =

@@ -1,4 +1,5 @@
 (function( $ ) {
+
 	'use strict';
 
     /*
@@ -7,26 +8,33 @@
      * @since 1.0
      */
     function wpMediaEditor() {
+
+		// Open WordPress Media Library
         wp.media.editor.open();
+
+		// On click
         wp.media.editor.send.attachment = function( props, attachment ) {
-            $('input.mm-sua-attachment-id').val( attachment.id );
-            $('figure.mm-sua-attachment-image.sua img').remove();
-            $('figure.mm-sua-attachment-image.sua')
-                .append(
-                    $('<img>')
-                        .attr({
-                            'src': attachment.sizes.thumbnail.url,
-                            'srcset': attachment.sizes.thumbnail.url,
-                            'class': 'avatar avatar-96 photo',
-                            'height': 96,
-                            'width': 96,
-                            'loading': 'lazy',
-                            'alt': attachment.title
-                        })
-                );
-			$('figure.mm-sua-attachment-image.default').addClass('hidden');
-            $('button#mm-sua-remove-media').removeClass('hidden');
+
+			// Set attachment_id value
+            $('.sua__attachment--id').val( attachment.id );
+
+			// Change the image attributes
+			$('.sua__attachment--figure')
+				.find('img')
+				.attr({
+					'src': attachment.sizes.thumbnail.url,
+					'srcset': attachment.sizes.thumbnail.url,
+					'alt': attachment.name
+				});
+
+			// Hide the figcaption
+			$('.sua__attachment--figcaption').addClass('hidden');
+
+			// Show remove button
+            $('#btn-media-remove').removeClass('hidden');
+
         };
+
     }
 
     /*
@@ -35,27 +43,61 @@
      * @since 1.0
      */
     function initSimpleUserAvatar() {
-        if( $('input.mm-sua-attachment-id').val() == '' ) {
-            $('button#mm-sua-remove-media').addClass('hidden');
-        }
+
+		// If attachment_id is empty
+        if( $('.sua__attachment--id').val() == '' ) {
+
+			// Hide remove button
+            $('#btn-media-remove').addClass('hidden');
+
+        } else {
+
+			// Hide caption for default avatar
+			$('.sua__attachment--figcaption').addClass('hidden');
+
+		}
 
         $(document)
-            .on( 'click', 'button#mm-sua-add-media', function(event) {
+            .on( 'click', '#btn-media-add', function( event ) {
+
                 event.preventDefault();
 
+				// Open WordPress Media Library
                 wpMediaEditor();
+
             })
-            .on( 'click', 'button#mm-sua-remove-media', function(event) {
+            .on( 'click', '#btn-media-remove', function( event ) {
+
                 event.preventDefault();
 
-                $('input.mm-sua-attachment-id').val( 0 );
-                $('figure.mm-sua-attachment-image.sua img').remove();
-				$('figure.mm-sua-attachment-image.default').removeClass('hidden');
-                $(this).addClass('hidden');
+				// Get default URL
+				var defaultUrl = $('.sua__attachment--figure').data( 'default_url' );
+
+				// Set default URL on the image
+				$('.sua__attachment--figure')
+					.find('img')
+					.attr({
+						'src': defaultUrl,
+						'srcset': defaultUrl
+					});
+
+				// Set attachment_id to empty
+				$('.sua__attachment--id').val( '' );
+
+				// Show the figcaption
+				$('.sua__attachment--figcaption').removeClass('hidden');
+
+				// Hide remove button
+				$(this).addClass('hidden');
+
             })
-            .on('click', 'figure.mm-sua-attachment-image img', function() {
-                wpMediaEditor();
+            .on('click', '.sua__attachment--figure img', function() {
+
+				// Trigger to button
+				$('#btn-media-add').trigger( 'click' );
+
             });
+
     }
 
 	/*
