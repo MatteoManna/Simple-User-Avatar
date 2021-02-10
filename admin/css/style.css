@@ -1,38 +1,45 @@
 @charset "utf-8";
 
+/* Hide WP default avatar */
 table.form-table tr.user-profile-picture,
 input.mm-sua-attachment-id {
     display: none;
 }
 
+/* Set style for avatar figure, figcaption and image */
 figure.mm-sua-attachment-image {
     margin: 0;
 }
 
 figure.mm-sua-attachment-image img {
+    width: 96px;
+    height: auto;
     background-color: white;
     border: 1px solid #e1e1e1;
     border-radius: 2px;
     cursor: pointer;
-    height: auto;
-    margin-bottom: 10px;
     padding: 3px;
-    width: 96px;
+    margin-bottom: 10px;
 }
 
-button.button.mm-sua-remove-media:hover,
-button.button.mm-sua-remove-media {
+figure.mm-sua-attachment-image figcaption {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+/* Set style for remove button */
+button#mm-sua-remove-media:hover,
+button#mm-sua-remove-media {
     background-color: #990000;
     border-color: #560303;
     box-shadow: 0 1px 0 #560303;
     color: white;
 }
 
-button.button.mm-sua-remove-media:hover {
+button#mm-sua-remove-media:hover {
     background-color: #b40000;
 }
 
-.mm-sua-notice {
-    padding-top: 15px;
-    padding-bottom: 15px;
+.hidden {
+    display: none;
 }
