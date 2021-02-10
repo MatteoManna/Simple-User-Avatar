@@ -7,7 +7,7 @@
 	 *
 	 * @since 1.0
 	 */
-    function wpMediaEditor() {
+	function wpMediaEditor() {
 
 		// Open WordPress Media Library
 		wp.media.editor.open();
@@ -35,14 +35,14 @@
 
 		};
 
-    }
+	}
 
 	/*
 	 * Init basic functions for two buttons (add and remove)
 	 *
 	 * @since 1.0
 	 */
-	 function initSimpleUserAvatar() {
+	function initSimpleUserAvatar() {
 
 		// If attachment_id is empty
 		if( $('.sua__attachment--id').val() == '' ) {
@@ -98,7 +98,7 @@
 
 			});
 
-    }
+	}
 
 	/*
 	 * Init functions
