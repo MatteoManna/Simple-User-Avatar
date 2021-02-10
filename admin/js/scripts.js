@@ -1,6 +1,6 @@
 (function( $ ) {
 
-    'use strict';
+	'use strict';
 
 	/*
 	 * Open WP Media editor
