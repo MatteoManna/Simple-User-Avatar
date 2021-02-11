@@ -30,7 +30,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
         }
 
 
-        public static function init() {
+        public function init() {
 
             new self;
 
@@ -42,7 +42,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          *
          * @since   1.0
          */
-        public static function custom_admin_enqueue_scripts() {
+        public function custom_admin_enqueue_scripts() {
 
             // CSS style for Admin
             wp_enqueue_style( 'sua', plugins_url( 'css/style.css', __FILE__ ), [], SUA_PLUGIN_VERSION, 'all' );
@@ -58,7 +58,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          *
          * @since   2.8
          */
-        private static function get_default_avatar_url_by_email( $user_email = '' ) {
+        private function get_default_avatar_url_by_email( $user_email = '' ) {
 
             // Check the email provided
             if ( empty($user_email) || ! filter_var($user_email, FILTER_VALIDATE_EMAIL) )
@@ -84,7 +84,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          *
          * @since   1.0
          */
-        public static function render_custom_user_profile_fields( $user ) {
+        public function render_custom_user_profile_fields( $user ) {
 
             // Get user meta
             $attachment_id = get_user_meta( $user->ID, SUA_USER_META_KEY, true );
@@ -122,7 +122,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          *
          * @since   1.0
          */
-        public static function update_custom_user_profile_fields( $user_id ) {
+        public function update_custom_user_profile_fields( $user_id ) {
 
             // If user don't have permissions
             if ( ! current_user_can( 'edit_user', $user_id ) )
@@ -149,7 +149,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          *
          * @since   2.6
          */
-        public static function custom_admin_notice() {
+        public function custom_admin_notice() {
 
             // Get the transient
             $notice_is_expired = get_transient( SUA_TRANSIENT_NAME );
@@ -201,7 +201,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          *
          * @since   2.6
          */
-        public static function post_close_notice() {
+        public function post_close_notice() {
 
             // Verify nonce
             if ( wp_verify_nonce( $_POST['_wpnonce'], get_bloginfo('name') ) ) :

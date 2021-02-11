@@ -37,6 +37,7 @@
 
 	}
 
+
 	/*
 	 * Init basic functions for two buttons (add and remove)
 	 *
@@ -99,6 +100,7 @@
 			});
 
 	}
+
 
 	/*
 	 * Init functions

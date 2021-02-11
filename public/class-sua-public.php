@@ -16,7 +16,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
         }
 
 
-        public static function init() {
+        public function init() {
 
             new self;
 
@@ -28,7 +28,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
          *
          * @since   1.0
          */
-        public static function get_avatar_filter( $avatar, $id_or_email, $size, $default, $alt ) {
+        public function get_avatar_filter( $avatar, $id_or_email, $size, $default, $alt ) {
 
             // Get user ID
             if ( is_numeric($id_or_email) ) :
@@ -43,7 +43,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
             elseif ( is_object($id_or_email) ) :
 
                 $user_id = (int)$id_or_email->user_id;
-                
+
             endif;
 
             // Get attachment_meta
