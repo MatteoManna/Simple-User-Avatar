@@ -44,11 +44,23 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          */
         public function custom_admin_enqueue_scripts() {
 
+            // Get current user
+            global $current_user;
+
+            // Enqueue WordPress Media Library
+            wp_enqueue_media();
+
             // CSS style for Admin
             wp_enqueue_style( 'sua', plugins_url( 'css/style.css', __FILE__ ), [], SUA_PLUGIN_VERSION, 'all' );
 
             // Javascript for Admin
             wp_enqueue_script( 'sua', plugins_url( 'js/scripts.js', __FILE__ ), [], SUA_PLUGIN_VERSION, true );
+
+            // Get default avatar URL by user_email
+            $l10n = [
+                'default_avatar_url' => $this->get_default_avatar_url_by_email( $current_user->user_email )
+            ];
+            wp_localize_script( 'sua', 'suaObj', $l10n );
 
         }
 
@@ -88,9 +100,6 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
 
             // Get user meta
             $attachment_id = get_user_meta( $user->ID, SUA_USER_META_KEY, true );
-
-            // Get default WordPress avatar URL using user email
-            $default_url = $this->get_default_avatar_url_by_email( $user->user_email );
             ?>
             <input type="number" name="<?php echo SUA_USER_META_KEY; ?>" class="sua__attachment--id" value="<?php echo $attachment_id; ?>" />
             <table class="form-table">
@@ -100,7 +109,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
                             <label for="btn-media-add"><?php _e('Profile Picture', 'simple-user-avatar'); ?></label>
                         </th>
                         <td>
-                            <figure class="sua__attachment--figure" data-default_url="<?php echo $default_url; ?>">
+                            <figure class="sua__attachment--figure">
                                 <?php echo get_avatar( $user->ID, 96 ); ?>
                                 <figcaption class="sua__attachment--figcaption"><?php _e('You\'re seeing the default profile picture.', 'simple-user-avatar'); ?></figcaption>
                             </figure>
