@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/donate/?cmd=_donations&business=matteomanna8
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
 Tested up to: 5.6
-Stable tag: 2.8
+Stable tag: 2.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,7 +51,8 @@ No, it's really simple. Add/Remove buttons, stop.
 == Changelog ==
 
 = 2.9 =
-* Release Date - 
+* Release Date - 13rd February 2021
+* Bug Fix
 
 = 2.8 =
 * Release Date - 10th February 2021
