@@ -16,7 +16,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
         }
 
 
-        public function init() {
+        public static function init() {
 
             new self;
 

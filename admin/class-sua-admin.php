@@ -30,7 +30,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
         }
 
 
-        public function init() {
+        public static function init() {
 
             new self;
 
@@ -60,7 +60,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
             $l10n = [
                 'default_avatar_url' => $this->get_default_avatar_url_by_email( $current_user->user_email )
             ];
-            wp_localize_script( 'sua', 'suaObj', $l10n );
+            wp_localize_script( 'sua', 'sua_obj', $l10n );
 
         }
 

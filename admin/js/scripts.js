@@ -72,7 +72,7 @@
 				event.preventDefault();
 
 				// Get default URL
-				var defaultUrl = suaObj.default_avatar_url;
+				var defaultUrl = sua_obj.default_avatar_url;
 
 				// Set default URL on the image
 				$('.sua__attachment--figure')
