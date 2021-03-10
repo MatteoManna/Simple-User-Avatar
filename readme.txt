@@ -4,8 +4,8 @@ Contributors: matteomanna
 Donate link: https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 3.0
+Tested up to: 5.7
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,72 +50,76 @@ No, it's really simple. Add/Remove buttons, stop.
 
 == Changelog ==
 
+= 3.1 =
+* Release Date - 10 March 2021
+* Support for WordPress 5.7
+
 = 3.0 =
-* Release Date - 17th February 2021
+* Release Date - 17 February 2021
 * Bug Fix
 
 = 2.9 =
-* Release Date - 13rd February 2021
+* Release Date - 13 February 2021
 * Bug Fix
 
 = 2.8 =
-* Release Date - 10th February 2021
+* Release Date - 10 February 2021
 * Get default WordPress avatar when users doesn't use custom avatar
 
 = 2.7 =
-* Release Date - 9th February 2021
+* Release Date - 9 February 2021
 * Reduced size of the donation banner
 
 = 2.6 =
-* Release Date - 9th December 2020
+* Release Date - 9 December 2020
 * Support for WordPress 5.6
 
 = 2.5 =
-* Release Date - 3rd November 2020
+* Release Date - 3 November 2020
 * Removed file `index.php`
 * Minor bug fix
 
 = 2.4 =
-* Release Date - 2nd November 2020
+* Release Date - 2 November 2020
 * New PHP Class called `SimpleUserAvatar`
 * New notice in PHP Class called `SimpleUserAvatar_notice`
 * Removed folder `languages`
 
 = 2.3 =
-* Release Date - 23rd October 2020
+* Release Date - 23 October 2020
 * Support for WordPress 5.5
 
 = 2.2 =
-* Release Date - 1st April 2020
+* Release Date - 1 April 2020
 * Fix for PHP 7.4.4
 
 = 2.1 =
-* Release Date - 1st April 2020
+* Release Date - 1 April 2020
 * Support for WordPress 5.4
 
 = 2.0 =
-* Release Date - 13rd November 2019
+* Release Date - 13 November 2019
 * Support for WordPress 5.3
 
 = 1.9 =
-* Release Date - 1st October 2019
+* Release Date - 1 October 2019
 * Support for WordPress 5.2.3
 
 = 1.8 =
-* Release Date - 14rd December 2018
+* Release Date - 14 December 2018
 * Support for WordPress 5.0.1
 
 = 1.7 =
-* Release Date - 1st December 2017
+* Release Date - 1 December 2017
 * Javascript fix
 * Now remove button is red
 
 = 1.6 =
-* Release Date - 23rd November 2017
+* Release Date - 23 November 2017
 * Added WordPress 4.9 compatibility
 
 = 1.5 =
-* Release Date - 5th October 2017
+* Release Date - 5 October 2017
 * Added injection prevention and improved strings for localization
 
 = 1.4 =
