@@ -8,7 +8,7 @@ _Simple User Avatar_ is a [WordPress](https://wordpress.org) plugin that help us
 2. Activate the plugin through the **Plugins** menu in [WordPress](https://wordpress.org);
 3. Now you have a new option in the user page;
 
-## Translate in your language
+## Translate into your language
 
 You can help us to translate this plugin to your language going to [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/simple-user-avatar/).
 
