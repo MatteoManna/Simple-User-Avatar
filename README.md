@@ -1,17 +1,21 @@
-## Simple User Avatar
+# Simple User Avatar
 
-_Simple User Avatar_ is a [WordPress](https://wordpress.org) plugin that help users to add or remove his avatar using images from his <strong>Media Library</strong>.
+_Simple User Avatar_ is a [WordPress](https://wordpress.org) plugin that help users to add or remove his avatar using images from his **Media Library**.
 
-### Installation
+## Installation
 
--   Upload `simple-user-avatar` directory to the `/wp-content/plugins/` directory;
--   Activate the plugin through the <strong>Plugins</strong> menu in [WordPress](https://wordpress.org);
--   Now you have a new option in the user page;
+1. Upload `simple-user-avatar` directory to the `/wp-content/plugins/` directory;
+2. Activate the plugin through the **Plugins** menu in [WordPress](https://wordpress.org);
+3. Now you have a new option in the user page;
 
-### Simple User Avatar in your language
+## Translate in your language
 
-You can help us to translate this plugin to your language going to [WordPress.org](https://translate.wordpress.org/projects/wp-plugins/simple-user-avatar/).
+You can help us to translate this plugin to your language going to [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/simple-user-avatar/).
 
-### Need support?
+## Need support?
 
-If you need support you can write a <strong>new topic</strong> on [WordPress Support](https://wordpress.org/support/plugin/simple-user-avatar/).
+If you need support you can write a **new topic** on [WordPress Support](https://wordpress.org/support/plugin/simple-user-avatar/). The author [Matteo Manna](https://matteomanna.com) will reply to you as soon as possible.
+
+## Donate
+
+_Simple User Avatar_ is an open source software. If you want to offer a coffee :coffee: to the author [Matteo Manna](https://matteomanna.com) you can donate using [PayPal](https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom).
