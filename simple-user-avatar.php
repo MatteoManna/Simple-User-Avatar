@@ -5,7 +5,7 @@
  * Plugin Name: Simple User Avatar
  * Plugin URI: https://wordpress.org/plugins/simple-user-avatar/
  * Description: Add a <strong>user avatar</strong> using images from your Media Library.
- * Version: 3.2
+ * Version: 3.3
  * Author: Matteo Manna
  * Author URI: https://matteomanna.com/
  * License: GPL-2.0+
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) )
  * @since   2.8
  */
 if ( ! defined( 'SUA_PLUGIN_VERSION' ) )
-    define( 'SUA_PLUGIN_VERSION', 3.2 );
+    define( 'SUA_PLUGIN_VERSION', 3.3 );
 
 if ( ! defined( 'SUA_USER_META_KEY' ) )
     define( 'SUA_USER_META_KEY', 'mm_sua_attachment_id' );
