@@ -40,3 +40,8 @@ table.form-table tr.user-profile-picture,
 #btn-media-remove:hover {
     background-color: #b40000;
 }
+
+/* Fix the square size of avatars in wp-admin */
+img.avatar {
+    object-fit: cover;
+}
