@@ -111,7 +111,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
                         <td>
                             <figure class="sua__attachment--figure">
                                 <?php echo get_avatar( $user->ID, 96 ); ?>
-                                <figcaption class="sua__attachment--figcaption"><?php _e('You\'re seeing the default profile picture.', 'simple-user-avatar'); ?></figcaption>
+                                <figcaption class="sua__attachment--figcaption"><?php _e("You're seeing the default profile picture.", 'simple-user-avatar'); ?></figcaption>
                             </figure>
                             <div>
                                 <button class="button" id="btn-media-add"><?php _e('Select', 'simple-user-avatar'); ?></button>
