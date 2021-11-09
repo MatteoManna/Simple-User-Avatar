@@ -10,7 +10,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
 
         public function __construct() {
 
-            // Override WP function get_avatar()
+            // Override WordPress function get_avatar()
             add_filter( 'get_avatar', [ $this, 'get_avatar_filter' ], 5, 5 );
 
         }
@@ -24,7 +24,7 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
 
 
         /**
-         * Ovverride of the original WP function get_avatar();
+         * Override of the original WordPress function get_avatar();
          *
          * @since   1.0
          */
