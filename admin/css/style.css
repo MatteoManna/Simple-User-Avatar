@@ -20,6 +20,7 @@ table.form-table tr.user-profile-picture,
     cursor: pointer;
     padding: 3px;
     margin-bottom: 10px;
+    object-fit: cover;
 }
 
 .sua__attachment--figcaption {
