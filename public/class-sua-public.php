@@ -52,13 +52,18 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
                 return $avatar;
 
             // Get attachment url
-            $attachment_url = wp_get_attachment_url( $attachment_id );
-            if ( empty($attachment_url) )
+            $attachment_src = wp_get_attachment_image_src( $attachment_id, 'medium' );
+            if ( $attachment_src === false )
+                return $avatar;
+            
+            // Get attachment srcset
+            $attachment_srcset = wp_get_attachment_image_srcset( $attachment_id );
+            if( $attachment_srcset === false )
                 return $avatar;
 
             // Override WP urls
-            $avatar = preg_replace( '/src=("|\').*?("|\')/', "src='{$attachment_url}'", $avatar );
-            $avatar = preg_replace( '/srcset=("|\').*?("|\')/', "srcset='{$attachment_url}'", $avatar );
+            $avatar = preg_replace( '/src=("|\').*?("|\')/', "src='{$attachment_src[0]}'", $avatar );
+            $avatar = preg_replace( '/srcset=("|\').*?("|\')/', "srcset='{$attachment_srcset}'", $avatar );
 
             return $avatar;
 
