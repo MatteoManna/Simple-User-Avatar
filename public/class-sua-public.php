@@ -46,12 +46,12 @@ if ( ! class_exists( 'SimpleUserAvatar_Public' ) ) :
 
             endif;
 
-            // Get attachment_meta
+            // Get attachment from user_meta
             $attachment_id = get_user_meta( $user_id, SUA_USER_META_KEY, true );
             if ( empty($attachment_id) )
                 return $avatar;
 
-            // Get attachment url
+            // Get attachment src
             $attachment_src = wp_get_attachment_image_src( $attachment_id, 'medium' );
             if ( $attachment_src === false )
                 return $avatar;
