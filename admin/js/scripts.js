@@ -3,7 +3,7 @@
 	'use strict';
 
 	/*
-	 * Open WP Media editor
+	 * Open WordPress Media editor
 	 *
 	 * @since 1.0
 	 */
