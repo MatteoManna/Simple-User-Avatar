@@ -51,7 +51,8 @@ No, it's really simple. Add/Remove buttons, stop.
 == Changelog ==
 
 = 3.5 =
-* Release Date - 
+* Release Date - 11 November 2021
+* Fixed "wp.media.editor" Javascript function
 
 = 3.4 =
 * Release Date - 10 November 2021
