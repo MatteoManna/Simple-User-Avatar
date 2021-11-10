@@ -51,7 +51,10 @@ No, it's really simple. Add/Remove buttons, stop.
 == Changelog ==
 
 = 3.4 =
-* Release Date -
+* Release Date - 10 November 2021
+* Fix "srcset" attribute;
+* Admin notice now is visible only in some pages;
+* Admin notice expiration now is set in 3 months
 
 = 3.3 =
 * Release Date - 9 November 2021
