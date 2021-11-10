@@ -1,5 +1,5 @@
 <?php
-if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
+if ( !class_exists( 'SimpleUserAvatar_Admin' ) ) :
 
     /**
      * PHP class SimpleUserAvatar_Admin
@@ -7,6 +7,9 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
      * @since   2.8
      */
     class SimpleUserAvatar_Admin {
+
+        private $notice_pages = [ 'users.php', 'profile.php', 'user-new.php' ];
+        private $notice_months_expiration = 3;
 
         public function __construct() {
 
@@ -58,7 +61,8 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
 
             // Get default avatar URL by user_email
             $l10n = [
-                'default_avatar_url' => $this->get_default_avatar_url_by_email( $current_user->user_email )
+                'default_avatar_src' => $this->get_default_avatar_url_by_email( $current_user->user_email, 96 ),
+                'default_avatar_srcset' => $this->get_default_avatar_url_by_email( $current_user->user_email, 192 ) . ' 2x'
             ];
             wp_localize_script( 'sua', 'sua_obj', $l10n );
 
@@ -70,11 +74,12 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
          *
          * @since   2.8
          */
-        private function get_default_avatar_url_by_email( $user_email = '' ) {
+        private function get_default_avatar_url_by_email( $user_email = '', $size = 96 ) {
 
             // Check the email provided
-            if ( empty($user_email) || ! filter_var($user_email, FILTER_VALIDATE_EMAIL) )
+            if ( empty($user_email) || !filter_var($user_email, FILTER_VALIDATE_EMAIL) ) {
                 return null;
+            }
 
             // Sanitize Email and get md5
             $user_email = sanitize_email( $user_email );
@@ -83,8 +88,8 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
             // SSL Gravatar URL
             $url = "https://secure.gravatar.com/avatar/{$md5_user_email}.jpg";
 
-            // Size 192 (96 * 2) for Retina Display
-            $url = add_query_arg( 's', 192, $url );
+            // Add size
+            $url = add_query_arg( 's', $size, $url );
 
             return esc_url( $url );
 
@@ -106,11 +111,11 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
                 <tbody>
                     <tr>
                         <th>
-                            <label for="btn-media-add"><?php _e('Profile Picture', 'simple-user-avatar'); ?></label>
+                            <label for="btn-media-add"><?php _e('Profile picture', 'simple-user-avatar'); ?></label>
                         </th>
                         <td>
                             <figure class="sua__attachment--figure">
-                                <?php echo get_avatar( $user->ID, 96 ); ?>
+                                <?php echo get_avatar( $user->ID, 96, '', $user->display_name ); ?>
                                 <figcaption class="sua__attachment--figcaption"><?php _e("You're seeing the default profile picture.", 'simple-user-avatar'); ?></figcaption>
                             </figure>
                             <div>
@@ -134,19 +139,17 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
         public function update_custom_user_profile_fields( $user_id ) {
 
             // If user don't have permissions
-            if ( ! current_user_can( 'edit_user', $user_id ) )
+            if ( !current_user_can( 'edit_user', $user_id ) ) {
                 return false;
+            }
 
             // Delete old user meta
             delete_user_meta( $user_id, SUA_USER_META_KEY );
 
             // Validate POST data and, if exists, add it
-            if (
-                isset($_POST[SUA_USER_META_KEY])
-                && is_numeric($_POST[SUA_USER_META_KEY])
-                && $_POST[SUA_USER_META_KEY] > 0
-            )
-                add_user_meta( $user_id, SUA_USER_META_KEY, $_POST[SUA_USER_META_KEY] );
+            if ( isset($_POST[SUA_USER_META_KEY]) && is_numeric($_POST[SUA_USER_META_KEY]) ) {
+                add_user_meta( $user_id, SUA_USER_META_KEY, (int)$_POST[SUA_USER_META_KEY] );
+            }
 
             return true;
 
@@ -163,43 +166,47 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
             // Get the transient
             $notice_is_expired = get_transient( SUA_TRANSIENT_NAME );
 
-            if (
-                ! empty($notice_is_expired)
-                && is_numeric($notice_is_expired)
-                && $notice_is_expired == 1
-            ) :
+            if ( !empty($notice_is_expired) && is_numeric($notice_is_expired) && $notice_is_expired == 1 ) {
 
                 // Notice dismissed, nothing to see!
 
-            else:
+            } else {
 
                 // Get Current user
-                global $current_user;
+                global $current_user, $pagenow;
 
-                // Show the notice
-                ?>
-                <div class="notice notice-info">
-                    <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
-                        <p>
-                            <?php
-                            printf(
-                                __( 'Dear <strong>%s</strong>,<br />thank you for using my plugin <a href="%s" title="Simple User Avatar" target="_blank">Simple User Avatar</a>! To <strong>support</strong> the development, also in the future, I invite you to support me. Even a small amount, such as <strong>1$</strong> for one coffee, will be greatly appreciated. Thank you very much, Matteo.', 'simple-user-avatar' ),
-                                sanitize_text_field( $current_user->display_name ),
-                                esc_url( 'https://wordpress.org/plugins/simple-user-avatar/' )
-                            );
-                            ?>
-                        </p>
-                        <p>
-                            <a href="https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom" class="button button-primary" target="_blank"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
-                            <button type="submit" class="button"><?php _e( 'Hide for 1 month', 'simple-user-avatar' ); ?></button>
-                        </p>
-                        <input type="hidden" name="action" value="close_notice" />
-                        <?php wp_nonce_field( get_bloginfo('name'), '_wpnonce' ); ?>
-                    </form>
-                </div>
-                <?php
+                // Show the notice, if the page is in private array
+                if ( in_array( $pagenow, $this->notice_pages ) ) {
 
-            endif;
+                    // Set the nonce field
+                    $wp_nonce_field = wp_nonce_field( SUA_TRANSIENT_NAME, '_wpnonce', true, false );
+                    $wp_nonce_field = preg_replace( '/id=("|\').*?("|\')/', '', $wp_nonce_field );
+                    ?>
+
+                    <div class="notice notice-info">
+                        <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
+                            <p>
+                                <?php
+                                printf(
+                                    __( 'Dear <strong>%s</strong>,<br />thank you for using my plugin <a href="%s" title="Simple User Avatar" target="_blank">Simple User Avatar</a>! To <strong>support</strong> the development, also in the future, I invite you to <strong>support me</strong>. Even a small amount, such as <strong>1$</strong> for one coffee &#x2615, will be greatly appreciated.<br />Thank you very much, Matteo.', 'simple-user-avatar' ),
+                                    sanitize_text_field( $current_user->display_name ),
+                                    esc_url( 'https://wordpress.org/plugins/simple-user-avatar/' )
+                                );
+                                ?>
+                            </p>
+                            <p>
+                                <a href="https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom" class="button button-primary" target="_blank"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
+                                <button type="submit" class="button"><?php printf( __('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration ); ?></button>
+                            </p>
+                            <input type="hidden" name="action" value="close_notice" />
+                            <?php echo $wp_nonce_field; ?>
+                        </form>
+                    </div>
+
+                    <?php
+                }
+
+            }
 
         }
 
@@ -213,20 +220,17 @@ if ( ! class_exists( 'SimpleUserAvatar_Admin' ) ) :
         public function post_close_notice() {
 
             // Verify nonce
-            if ( wp_verify_nonce( $_POST['_wpnonce'], get_bloginfo('name') ) ) :
-
-                // Number of days
-                $days = 30;
+            if ( wp_verify_nonce( $_POST['_wpnonce'], SUA_TRANSIENT_NAME ) ) {
 
                 // Transient settings
                 $transient = SUA_TRANSIENT_NAME;
                 $value = 1;
-                $expiration = ( (60 * 60) * 24 ) * $days;
+                $expiration = (((60 * 60) * 24) * 30) * $this->notice_months_expiration;
 
                 // Set the transient
                 set_transient( $transient, $value, $expiration );
 
-            endif;
+            }
 
             exit( wp_safe_redirect( $_POST['_wp_http_referer'] ) );
 

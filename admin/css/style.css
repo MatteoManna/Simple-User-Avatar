@@ -8,23 +8,17 @@ table.form-table tr.user-profile-picture,
 
 /* Set style for avatar figure, figcaption and image */
 .sua__attachment--figure {
-    margin: 0;
+    margin: 0 0 10px 0;
 }
 
 .sua__attachment--figure > img {
     width: 96px;
     height: 96px;
-    background-color: white;
-    border: 1px solid #e1e1e1;
-    border-radius: 2px;
+    border-radius: 1px;
     cursor: pointer;
-    padding: 3px;
-    margin-bottom: 10px;
-    object-fit: cover;
 }
 
 .sua__attachment--figcaption {
-    margin-bottom: 10px;
     color: #666;
 }
 

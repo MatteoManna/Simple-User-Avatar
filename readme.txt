@@ -5,18 +5,18 @@ Donate link: https://www.paypal.com/donate/?cmd=_donations&business=matteomanna8
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
 Tested up to: 5.8
-Stable tag: 3.3
+Stable tag: 3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Simple User Avatar helps users to add or remove his avatar using images from his Media Library.
+Simple User Avatar helps users to add or remove their avatar using images from his Media Library.
 
 
 
 == Description ==
 
 This plugin simplifies the life of WordPress users.
-Now users can add or remove his Avatar simply using images from his Media Library. Simple to use, no additional functions required. Plugin available on [GitHub](https://github.com/MatteoManna/Simple-User-Avatar).
+Now users can add or remove their avatar simply using images from his Media Library. Simple to use, no additional functions required. Plugin available on [GitHub](https://github.com/MatteoManna/Simple-User-Avatar).
 
 
 
@@ -49,6 +49,9 @@ No, it's really simple. Add/Remove buttons, stop.
 
 
 == Changelog ==
+
+= 3.4 =
+* Release Date -
 
 = 3.3 =
 * Release Date - 9 November 2021

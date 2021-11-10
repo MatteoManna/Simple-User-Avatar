@@ -71,15 +71,16 @@
 
 				event.preventDefault();
 
-				// Get default URL
-				var defaultUrl = sua_obj.default_avatar_url;
+				// Get default Src and default SrcSet
+				var defaultSrc = sua_obj.default_avatar_src;
+				var defaultSrcSet = sua_obj.default_avatar_srcset;
 
 				// Set default URL on the image
 				$('.sua__attachment--figure')
 					.find('img')
 					.attr({
-						'src': defaultUrl,
-						'srcset': defaultUrl
+						'src': defaultSrc,
+						'srcset': defaultSrcSet
 					});
 
 				// Set attachment_id to empty

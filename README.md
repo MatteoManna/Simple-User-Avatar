@@ -1,6 +1,6 @@
 # Simple User Avatar
 
-_Simple User Avatar_ is a [WordPress](https://wordpress.org) plugin that help users to add or remove his avatar using images from his **Media Library**.
+_Simple User Avatar_ is a [WordPress](https://wordpress.org) plugin that help users to add or remove their avatar using images from his **Media Library**.
 
 ## Installation
 
