@@ -84,7 +84,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
          *
          * @since   2.8
          */
-        private function get_default_avatar_url_by_email( string $user_email = '', int $size = 96 ) {
+        private function get_default_avatar_url_by_email( $user_email = '', $size = 96 ) {
 
             // Check the email provided
             if ( empty($user_email) || !filter_var($user_email, FILTER_VALIDATE_EMAIL) ) {
@@ -111,7 +111,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
          *
          * @since   1.0
          */
-        public function render_custom_user_profile_fields( object $user ) {
+        public function render_custom_user_profile_fields( $user ) {
 
             // Get user meta
             $attachment_id = get_user_meta( $user->ID, SUA_USER_META_KEY, true );
@@ -148,7 +148,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
          *
          * @since   1.0
          */
-        public function update_custom_user_profile_fields( int $user_id ) {
+        public function update_custom_user_profile_fields( $user_id ) {
 
             // If user don't have permissions
             if ( !current_user_can( 'edit_user', $user_id ) ) {
