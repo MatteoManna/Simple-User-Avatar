@@ -2,105 +2,114 @@
 
 	'use strict';
 
-	/*
-	 * Init functions
-	 *
-	 * @since 2.8
-	 */
-	$(function() {
-		
-		// If attachment_id is empty
-		if ( $('.sua__attachment--id').val() === '' ) {
+	// Tags name
+	var tagAttachmentId     = 'input[name="' + sua_obj.input_name + '"]';
+	var tagAttachmentAvatar = '.sua-attachment-avatar';
+	var tagAttachmentDesc   = '#sua-attachment-description';
+	var tagButtonAdd        = '#btn-media-add';
+	var tagButtonRemove     = '#btn-media-remove';
 
-			// Hide remove button
-			$('#btn-media-remove').addClass('hidden');
+	// jQuery elements by tags
+	var elAttachmentId      = $( tagAttachmentId );
+	var elAttachmentAvatar  = $( tagAttachmentAvatar) ;
+	var elAttachmentDesc    = $( tagAttachmentDesc );
+	var elButtonAdd         = $( tagButtonAdd );
+	var elButtonRemove      = $( tagButtonRemove );
+
+	// WordPress default media sizes
+	var WPMediaSizes        = [ 'full', 'large', 'medium', 'thumbnail' ];
+
+	// Get default Src and default SrcSet
+	var defaultSrc          = sua_obj.default_avatar_src;
+	var defaultSrcSet       = sua_obj.default_avatar_srcset;
+
+
+	/*
+	 * Update attachment
+	 *
+	 * @since   3.6
+	 */
+	function updateAttachment( attachmentSrc = '', attachmentSrcSet = '', attachmentId = null, isUpdate = true ) {
+
+		// Change the image attributes
+		elAttachmentAvatar.attr({
+			'src': attachmentSrc,
+			'srcset': attachmentSrcSet
+		});
+		
+		// Set attachment ID value
+		elAttachmentId.val( attachmentId === null ? '' : parseInt( attachmentId ) );
+
+		// Check if is an "update" or a "remove"
+		if ( isUpdate === true ) {
+
+			// Hide the description
+			elAttachmentDesc.addClass( 'hidden' );
+
+			// Show remove button
+			elButtonRemove.removeClass( 'hidden' );
 
 		} else {
 
-			// Hide caption for default avatar
-			$('.sua__attachment--figcaption').addClass('hidden');
+			// Show the description
+			elAttachmentDesc.removeClass( 'hidden' );
+
+			// Hide remove button
+			elButtonRemove.addClass( 'hidden' );
+
+		}
+	
+	}
+
+
+	/*
+	 * Init functions
+	 *
+	 * @since   2.8
+	 */
+	$(function() {
+
+
+		// WP Media Editor function
+		wp.media.editor.send.attachment = function( props, attachment ) {
+
+			// Set attachment Src to default URL
+			var attachmentSrc = attachment.url;
+
+			// If there is a smaller version I use it
+			for ( const WPMediaSize of WPMediaSizes ) {
+				if ( typeof attachment.sizes[WPMediaSize] !== 'undefined' && typeof attachment.sizes[WPMediaSize].url !== 'undefined' ) {
+					attachmentSrc = attachment.sizes[WPMediaSize].url;
+				}
+			}
+
+			// Update Attachment
+			updateAttachment( attachmentSrc, attachmentSrc, attachment.id, true );
 
 		}
 
+
+		// Set click functions
 		$(document)
-			.on( 'click', '#btn-media-add', function( event ) {
-
-				// Prevent default
-				event.preventDefault();
-
-				// WordPress media sizes
-				var mediaSizes = [ 'full', 'large', 'medium', 'thumbnail' ];
+			.on( 'click', tagButtonAdd, function() {
 
 				// Open WordPress Media Library
 				wp.media.editor.open();
 
-				// On click
-				wp.media.editor.send.attachment = function( props, attachment ) {
+			})
+			.on( 'click', tagButtonRemove, function() {
 
-					// Attachment URL for default
-					var attachmentUrl = attachment.url;
-
-					// If there is a smaller version I use it
-					for ( const mediaSize of mediaSizes ) {
-						if ( typeof attachment.sizes[mediaSize] !== 'undefined' && typeof attachment.sizes[mediaSize].url !== 'undefined' ) {
-							attachmentUrl = attachment.sizes[mediaSize].url;
-						}
-					}			
-
-					// Set attachment_id value
-					$('.sua__attachment--id').val( attachment.id );
-
-					// Change the image attributes
-					$('.sua__attachment--figure')
-						.find('img')
-						.attr({
-							'src': attachmentUrl,
-							'srcset': attachmentUrl,
-							'alt': attachment.name
-						});
-
-					// Hide the figcaption
-					$('.sua__attachment--figcaption').addClass('hidden');
-
-					// Show remove button
-					$('#btn-media-remove').removeClass('hidden');
-
-				};
+				// Update Avatar
+				updateAttachment( defaultSrc, defaultSrcSet, null, false );
 
 			})
-			.on( 'click', '#btn-media-remove', function( event ) {
+			.on( 'click', tagAttachmentAvatar, function() {
 
-				// Prevent default
-				event.preventDefault();
-
-				// Get default Src and default SrcSet
-				var defaultSrc = sua_obj.default_avatar_src;
-				var defaultSrcSet = sua_obj.default_avatar_srcset;
-
-				// Set default URL on the image
-				$('.sua__attachment--figure')
-					.find('img')
-					.attr({
-						'src': defaultSrc,
-						'srcset': defaultSrcSet
-					});
-
-				// Set attachment_id to empty
-				$('.sua__attachment--id').val( '' );
-
-				// Show the figcaption
-				$('.sua__attachment--figcaption').removeClass('hidden');
-
-				// Hide remove button
-				$(this).addClass('hidden');
-
-			})
-			.on( 'click', '.sua__attachment--figure img', function() {
-
-				// Trigger to button
-				$('#btn-media-add').trigger( 'click' );
+				// Trigger to add button
+				elButtonAdd.trigger( 'click' );
 
 			});
+
 
 	});
 

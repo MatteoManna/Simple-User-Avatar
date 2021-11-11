@@ -1,5 +1,5 @@
 <?php
-if ( !class_exists( 'SimpleUserAvatar_Public' ) ) :
+if ( !class_exists('SimpleUserAvatar_Public') ) :
 
     /**
      * PHP class SimpleUserAvatar_Public
@@ -10,7 +10,7 @@ if ( !class_exists( 'SimpleUserAvatar_Public' ) ) :
 
         public function __construct() {
 
-            // Override WordPress function get_avatar()
+            // Override WordPress function get_avatar();
             add_filter( 'get_avatar', [ $this, 'get_avatar_filter' ], 5, 5 );
 
         }
@@ -28,7 +28,7 @@ if ( !class_exists( 'SimpleUserAvatar_Public' ) ) :
          *
          * @since   1.0
          */
-        public function get_avatar_filter( $avatar, $id_or_email, $size, $default, $alt ) {
+        public function get_avatar_filter( string $avatar, $id_or_email, int $size, string $default, string $alt ) {
 
             // Get user ID, if is numeric
             if ( is_numeric($id_or_email) ) {

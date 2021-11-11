@@ -1,41 +1,33 @@
 @charset "utf-8";
 
-/* Hide WP default avatar */
-table.form-table tr.user-profile-picture,
-.sua__attachment--id {
+/* Hide WordPress default avatar */
+.user-profile-picture {
     display: none;
 }
 
-/* Set style for avatar figure, figcaption and image */
-.sua__attachment--figure {
-    margin: 0 0 10px 0;
-}
-
-.sua__attachment--figure > img {
-    width: 96px;
-    height: 96px;
+/* Set style for the avatar picture */
+.sua-attachment-avatar {
     border-radius: 1px;
     cursor: pointer;
 }
 
-.sua__attachment--figcaption {
-    color: #666;
-}
-
-/* Set style for remove button */
+/* Set style for buttons */
 #btn-media-remove,
 #btn-media-remove:hover {
-    background-color: #990000;
+    background: #990000;
     border-color: #560303;
-    box-shadow: 0 1px 0 #560303;
     color: white;
 }
 
 #btn-media-remove:hover {
-    background-color: #b40000;
+    background: #b40000;
 }
 
-/* Fix the square size of avatars in wp-admin */
+#btn-media-remove:focus {
+    box-shadow: 0 0 0 1px #560303;
+}
+
+/* Fix the square size of avatars in /wp-admin */
 img.avatar {
     object-fit: cover;
 }
