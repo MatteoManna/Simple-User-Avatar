@@ -69,32 +69,30 @@
 	 */
 	$(function() {
 
-
-		// WP Media Editor function
-		wp.media.editor.send.attachment = function( props, attachment ) {
-
-			// Set attachment Src to default URL
-			var attachmentSrc = attachment.url;
-
-			// If there is a smaller version I use it
-			for ( const WPMediaSize of WPMediaSizes ) {
-				if ( typeof attachment.sizes[WPMediaSize] !== 'undefined' && typeof attachment.sizes[WPMediaSize].url !== 'undefined' ) {
-					attachmentSrc = attachment.sizes[WPMediaSize].url;
-				}
-			}
-
-			// Update Attachment
-			updateAttachment( attachmentSrc, attachmentSrc, attachment.id, true );
-
-		}
-
-
 		// Set click functions
 		$(document)
 			.on( 'click', tagButtonAdd, function() {
 
 				// Open WordPress Media Library
 				wp.media.editor.open();
+
+				// WP Media Editor function
+				wp.media.editor.send.attachment = function( props, attachment ) {
+
+					// Set attachment Src to default URL
+					var attachmentSrc = attachment.url;
+
+					// If there is a smaller version I use it
+					for ( const WPMediaSize of WPMediaSizes ) {
+						if ( typeof attachment.sizes[WPMediaSize] !== 'undefined' && typeof attachment.sizes[WPMediaSize].url !== 'undefined' ) {
+							attachmentSrc = attachment.sizes[WPMediaSize].url;
+						}
+					}
+
+					// Update Attachment
+					updateAttachment( attachmentSrc, attachmentSrc, attachment.id, true );
+
+				}
 
 			})
 			.on( 'click', tagButtonRemove, function() {
