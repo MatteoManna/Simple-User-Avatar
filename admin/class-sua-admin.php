@@ -1,5 +1,5 @@
 <?php
-if ( !class_exists('SimpleUserAvatar_Admin') ) :
+if ( !class_exists('SimpleUserAvatar_Admin') ) {
 
     /**
      * PHP class SimpleUserAvatar_Admin
@@ -314,4 +314,4 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
 
     add_action( 'plugins_loaded', [ 'SimpleUserAvatar_Admin', 'init' ] );
 
-endif;
+}
