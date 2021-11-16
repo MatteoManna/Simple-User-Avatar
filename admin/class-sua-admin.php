@@ -33,6 +33,9 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
             add_action( 'personal_options_update', [ $this, 'update_custom_user_profile_fields' ] );
             add_action( 'edit_user_profile_update', [ $this, 'update_custom_user_profile_fields' ] );
 
+            // Delete user meta when attachment is deleted
+            add_action( 'delete_attachment', [ $this, 'custom_delete_attachment' ] );
+
             // HTML render of notice
             add_action( 'admin_notices', [ $this, 'custom_admin_notice' ] );
 
@@ -92,7 +95,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
             }
 
             // Sanitize email and get md5
-            $user_email = sanitize_email( $user_email );
+            $user_email     = sanitize_email( $user_email );
             $md5_user_email = md5( $user_email );
 
             // SSL Gravatar URL
@@ -139,7 +142,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
             <input type="hidden" name="<?php echo SUA_USER_META_KEY; ?>" value="<?php echo $attachment_id; ?>" />
 
             <?php
-            
+
         }
 
 
@@ -169,54 +172,100 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
 
 
         /**
-         * Admin notice to donate for this plugin
+         * Delete user meta when attachment is deleted
+         *
+         * @since   3.9
+         */
+        public function custom_delete_attachment( $post_id ) {
+
+                global $wpdb;
+
+                // Delete all user meta where deleted attachment post ID exists
+                $wpdb->delete(
+                    $wpdb->usermeta,
+                    [
+                        'meta_key'   => SUA_USER_META_KEY,
+                        'meta_value' => (int)$post_id
+                    ],
+                    [
+                        '%s',
+                        '%d'
+                    ]
+                );
+
+        }
+
+
+        /**
+         * Admin notices:
+         * 1. Error notice if transient not saved
+         * 2. Donate for this plugin, if transient not exists or is expired
          *
          * @since   2.6
          */
         public function custom_admin_notice() {
 
+            // Get Current user
+            global $current_user, $pagenow;
+
+            // Check if there is a GET error
+            if ( isset( $_GET['error'] ) ) {
+
+                // Notice error container
+                $notice_error_container = '<div class="notice notice-error is-dismissible">%s</div>';
+                
+                // Switch errors
+                switch( $_GET['error'] ) {
+
+                    // Transient not saved
+                    case 'sua_transient_not_set':
+                        printf(
+                            $notice_error_container,
+                            __( '<p>An error occurred while <strong>saving the transient</strong>. Please make sure this website can save transients.</p>', 'simple-user-avatar' )
+                        );
+                        break;
+
+                }
+                
+            }
+
             // Get the transient
             $notice_is_expired = get_transient( SUA_TRANSIENT_NAME );
 
-            if ( !empty($notice_is_expired) && is_numeric($notice_is_expired) && $notice_is_expired == 1 ) {
+            // Check the return of transient, if it's okay empty return
+            if ( $notice_is_expired !== false && is_numeric($notice_is_expired) && $notice_is_expired == 1 ) {
+                return;
+            }
 
-                // Notice dismissed, nothing to see!
+            // Show the notice, if the page is in private array
+            if ( in_array( $pagenow, $this->notice_enabled_pages ) ) {
 
-            } else {
+                // Set the nonce field
+                $wp_nonce_field = wp_nonce_field( SUA_TRANSIENT_NAME, '_wpnonce', true, false );
+                $wp_nonce_field = preg_replace( '/id=("|\').*?("|\')/', '', $wp_nonce_field );
+                ?>
 
-                // Get Current user
-                global $current_user, $pagenow;
+                <div class="notice notice-info">
+                    <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
+                        <p>
+                            <?php
+                            printf(
+                                __( 'Dear <strong>%s</strong>,<br />thank you for using my plugin <a href="%s" title="Simple User Avatar" target="_blank" rel="noopener">Simple User Avatar</a>! To <strong>support</strong> the development, also in the future, I invite you to <strong>support me</strong>. Even a small amount, such as <strong>1$</strong> for one coffee &#x2615, will be greatly appreciated.<br />Best regards, Matteo.', 'simple-user-avatar' ),
+                                sanitize_text_field( $current_user->display_name ),
+                                esc_url( $this->plugin_public_permalink )
+                            );
+                            ?>
+                        </p>
+                        <p>
+                            <a href="<?php echo esc_url( $this->donation_permalink ); ?>" class="button button-primary" target="_blank" rel="noopener"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
+                            <button type="submit" class="button"><?php printf( __('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration ); ?></button>
+                        </p>
+                        <input type="hidden" name="action" value="close_notice" />
+                        <?php echo $wp_nonce_field; ?>
+                    </form>
+                </div>
 
-                // Show the notice, if the page is in private array
-                if ( in_array( $pagenow, $this->notice_enabled_pages ) ) {
-
-                    // Set the nonce field
-                    $wp_nonce_field = wp_nonce_field( SUA_TRANSIENT_NAME, '_wpnonce', true, false );
-                    $wp_nonce_field = preg_replace( '/id=("|\').*?("|\')/', '', $wp_nonce_field );
-                    ?>
-
-                    <div class="notice notice-info">
-                        <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
-                            <p>
-                                <?php
-                                printf(
-                                    __( 'Dear <strong>%s</strong>,<br />thank you for using my plugin <a href="%s" title="Simple User Avatar" target="_blank" rel="noopener">Simple User Avatar</a>! To <strong>support</strong> the development, also in the future, I invite you to <strong>support me</strong>. Even a small amount, such as <strong>1$</strong> for one coffee &#x2615, will be greatly appreciated.<br />Best regards, Matteo.', 'simple-user-avatar' ),
-                                    sanitize_text_field( $current_user->display_name ),
-                                    esc_url( $this->plugin_public_permalink )
-                                );
-                                ?>
-                            </p>
-                            <p>
-                                <a href="<?php echo esc_url( $this->donation_permalink ); ?>" class="button button-primary" target="_blank" rel="noopener"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
-                                <button type="submit" class="button"><?php printf( __('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration ); ?></button>
-                            </p>
-                            <input type="hidden" name="action" value="close_notice" />
-                            <?php echo $wp_nonce_field; ?>
-                        </form>
-                    </div>
-
-                    <?php
-                }
+                <?php
 
             }
 
@@ -224,27 +273,35 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
 
 
         /**
-         * Save the hide command for the notice
          * Set the transient
+         * Add query arg if there is an error
          *
          * @since   2.6
          */
         public function post_close_notice() {
 
+            // Set default redirect URL
+            $redirect_url = !empty( $_POST['_wp_http_referer'] ) ? $_POST['_wp_http_referer'] : admin_url( 'users.php' ) ;
+
             // Verify nonce
-            if ( wp_verify_nonce( $_POST['_wpnonce'], SUA_TRANSIENT_NAME ) ) {
+            if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], SUA_TRANSIENT_NAME ) ) {
 
                 // Transient settings
                 $transient  = SUA_TRANSIENT_NAME;
                 $value      = 1;
-                $expiration = (((60 * 60) * 24) * 30) * $this->notice_months_expiration;
+                $expiration = (86400 * 30) * $this->notice_months_expiration;
 
-                // Set the transient
-                set_transient( $transient, $value, $expiration );
+                // Set the transient but, if an error has occurred, add query arg at redirect URL
+                if ( set_transient( $transient, $value, $expiration ) === false ) {
+                    $redirect_url = add_query_arg( 'error', 'sua_transient_not_set', $redirect_url );
+                }
 
             }
 
-            exit( wp_safe_redirect( $_POST['_wp_http_referer'] ) );
+            // Safe redirect
+            if ( wp_safe_redirect( esc_url( $redirect_url ) ) ) {
+                exit;
+            }
 
         }
 
