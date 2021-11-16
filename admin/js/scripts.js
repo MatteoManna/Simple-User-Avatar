@@ -75,7 +75,7 @@
 					}
 
 					// Update Attachment
-					updateAttachment( attachmentSrc, attachmentSrc, attachment.id, true );
+					updateAttachment( attachmentSrc, attachmentSrc, attachment.id );
 
 				}
 
@@ -83,7 +83,7 @@
 			.on( 'click', tagButtonRemove, function() {
 
 				// Update Avatar
-				updateAttachment( defaultSrc, defaultSrcSet, null );
+				updateAttachment( defaultSrc, defaultSrcSet );
 
 			})
 			.on( 'click', tagAttachmentAvatar, function() {
