@@ -27,7 +27,8 @@
 	/*
 	 * Update attachment
 	 *
-	 * @since   3.6
+	 * @since  3.6
+	 * @return void
 	 */
 	function updateAttachment( attachmentSrc = '', attachmentSrcSet = '', attachmentId = null ) {
 
@@ -50,7 +51,7 @@
 	/*
 	 * Init functions
 	 *
-	 * @since   2.8
+	 * @since 2.8
 	 */
 	$(function() {
 

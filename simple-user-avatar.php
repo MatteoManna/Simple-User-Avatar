@@ -21,7 +21,7 @@ if ( !defined('ABSPATH') ) {
 /**
  * Global defines
  *
- * @since   2.8
+ * @since 2.8
  */
 if ( !defined('SUA_PLUGIN_VERSION') ) {
     define( 'SUA_PLUGIN_VERSION', 3.9 );
@@ -38,7 +38,7 @@ if ( !defined('SUA_TRANSIENT_NAME') ) {
 /**
  * Require classes
  *
- * @since   2.5
+ * @since 2.5
  */
 require_once plugin_dir_path( __FILE__ ) . 'public/class-sua-public.php';
 

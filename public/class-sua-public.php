@@ -4,7 +4,7 @@ if ( !class_exists('SimpleUserAvatar_Public') ) {
     /**
      * PHP class SimpleUserAvatar_Public
      *
-     * @since   2.8
+     * @since 2.8
      */
     class SimpleUserAvatar_Public {
 
@@ -26,7 +26,8 @@ if ( !class_exists('SimpleUserAvatar_Public') ) {
         /**
          * Override of the original WordPress function get_avatar();
          *
-         * @since   1.0
+         * @since  1.0
+         * @return string
          */
         public function get_avatar_filter( $avatar, $id_or_email, $size, $default, $alt ) {
 

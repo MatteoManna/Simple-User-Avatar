@@ -4,14 +4,14 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
     /**
      * PHP class SimpleUserAvatar_Admin
      *
-     * @since   2.8
+     * @since 2.8
      */
     class SimpleUserAvatar_Admin {
 
         /**
          * Properties
          *
-         * @since   3.6
+         * @since 3.6
          */
         private $avatar_size              = 96;
         private $notice_months_expiration = 3;
@@ -55,7 +55,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
         /**
          * Load CSS and JavaScript for wp-admin
          *
-         * @since   1.0
+         * @since  1.0
+         * @return void
          */
         public function custom_admin_enqueue_scripts() {
 
@@ -85,7 +86,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
         /**
          * Default WordPress avatar URL by user email
          *
-         * @since   2.8
+         * @since  2.8
+         * @return string
          */
         private function get_default_avatar_url_by_email( $user_email = '', $size = 96 ) {
 
@@ -114,7 +116,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
         /**
          * Add table in user profile
          *
-         * @since   1.0
+         * @since  1.0
+         * @return void
          */
         public function render_custom_user_profile_fields( $user ) {
 
@@ -151,7 +154,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
         /**
          * Update the user meta when user save
          *
-         * @since   1.0
+         * @since  1.0
+         * @return bool
          */
         public function update_custom_user_profile_fields( $user_id ) {
 
@@ -176,7 +180,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
         /**
          * Delete user meta when attachment is deleted
          *
-         * @since   3.9
+         * @since  3.9
+         * @return void
          */
         public function custom_delete_attachment( $post_id ) {
 
@@ -203,7 +208,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
          * 1. Error notice if transient not saved
          * 2. Donate for this plugin, if transient not exists or is expired
          *
-         * @since   2.6
+         * @since  2.6
+         * @return void
          */
         public function custom_admin_notice() {
 
@@ -281,7 +287,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
          * Set the transient
          * Add query arg if there is an error
          *
-         * @since   2.6
+         * @since  2.6
+         * @return void
          */
         public function post_close_notice() {
 
