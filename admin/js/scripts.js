@@ -82,7 +82,7 @@
 			})
 			.on( 'click', tagButtonRemove, function() {
 
-				// Update Avatar
+				// Update Attachment
 				updateAttachment( defaultSrc, defaultSrcSet );
 
 			})
