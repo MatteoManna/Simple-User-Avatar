@@ -178,20 +178,20 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
          */
         public function custom_delete_attachment( $post_id ) {
 
-                global $wpdb;
+            global $wpdb;
 
-                // Delete all user meta where deleted attachment post ID exists
-                $wpdb->delete(
-                    $wpdb->usermeta,
-                    [
-                        'meta_key'   => SUA_USER_META_KEY,
-                        'meta_value' => (int)$post_id
-                    ],
-                    [
-                        '%s',
-                        '%d'
-                    ]
-                );
+            // Delete all user meta where deleted attachment post ID exists
+            $wpdb->delete(
+                $wpdb->usermeta,
+                [
+                    'meta_key'   => SUA_USER_META_KEY,
+                    'meta_value' => (int)$post_id
+                ],
+                [
+                    '%s',
+                    '%d'
+                ]
+            );
 
         }
 
