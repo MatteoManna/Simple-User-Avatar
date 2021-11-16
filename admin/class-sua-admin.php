@@ -13,11 +13,12 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
          *
          * @since 3.6
          */
-        private $avatar_size              = 96;
-        private $notice_months_expiration = 3;
-        private $notices_enabled_pages    = [ 'users.php', 'profile.php', 'user-new.php' ];
-        private $donation_permalink       = 'https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom';
-        private $plugin_public_permalink  = 'https://wordpress.org/plugins/simple-user-avatar/';
+        private $avatar_size                = 96;
+        private $notice_months_expiration   = 3;
+        private $notices_enabled_pages      = [ 'users.php', 'profile.php', 'user-new.php' ];
+        private $donation_public_permalink  = 'https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom';
+        private $reference_public_permalink = 'https://developer.wordpress.org/reference/functions/set_transient/';
+        private $plugin_public_permalink    = 'https://wordpress.org/plugins/simple-user-avatar/';
 
 
         public function __construct() {
@@ -234,7 +235,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
                             $notice_error_container,
                             sprintf(
                                 __( '<p>An error occurred while <strong>saving the transient</strong>. Please make sure this website can <a href="%s" title="WordPress code reference" target="_blank" rel="noopener">save transients</a>.</p>', 'simple-user-avatar' ),
-                                esc_url( 'https://developer.wordpress.org/reference/functions/set_transient/' )
+                                esc_url( $this->reference_public_permalink )
                             )
                         );
                         break;
@@ -282,7 +283,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
                         ?>
                     </p>
                     <p>
-                        <a href="<?php echo esc_url( $this->donation_permalink ); ?>" class="button button-primary" target="_blank" rel="noopener"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
+                        <a href="<?php echo esc_url( $this->donation_public_permalink ); ?>" class="button button-primary" target="_blank" rel="noopener"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
                         <button type="submit" class="button"><?php printf( __('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration ); ?></button>
                     </p>
                     <input type="hidden" name="action" value="close_notice" />
