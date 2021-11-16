@@ -15,15 +15,14 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
          */
         private $avatar_size              = 96;
         private $notice_months_expiration = 3;
-        private $notice_enabled_pages     = [ 'users.php', 'profile.php', 'user-new.php' ];
+        private $users_enabled_pages      = [ 'users.php', 'profile.php', 'user-new.php' ];
         private $donation_permalink       = 'https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom';
         private $plugin_public_permalink  = 'https://wordpress.org/plugins/simple-user-avatar/';
 
 
         public function __construct() {
 
-            // Admin scripts
-            add_action( 'admin_enqueue_scripts', [ $this, 'custom_admin_enqueue_scripts' ] );
+            global $pagenow;
 
             // HTML render profile fields
             add_action( 'show_user_profile', [ $this, 'render_custom_user_profile_fields' ] );
@@ -36,11 +35,20 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
             // Delete user meta when attachment is deleted
             add_action( 'delete_attachment', [ $this, 'custom_delete_attachment' ] );
 
-            // HTML render of notice
-            add_action( 'admin_notices', [ $this, 'custom_admin_notice' ] );
-
             // Post call to close notice
             add_action( 'admin_post_close_notice', [ $this, 'post_close_notice' ] );
+
+            // Load actions only in users pages
+            if ( in_array( $pagenow, $this->users_enabled_pages ) ) {
+
+                // Admin scripts
+                add_action( 'admin_enqueue_scripts', [ $this, 'custom_admin_enqueue_scripts' ] );
+
+                // HTML render of notices
+                add_action( 'admin_notices', [ $this, 'render_admin_error_notices' ] );
+                add_action( 'admin_notices', [ $this, 'render_admin_donation_notice' ] );
+
+            }
 
         }
 
@@ -167,7 +175,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
             // Delete old user meta
             delete_user_meta( $user_id, SUA_USER_META_KEY );
 
-            // Validate POST data and, if exists, add it
+            // Validate POST data and, if is ok, add it
             if ( isset($_POST[SUA_USER_META_KEY]) && is_numeric($_POST[SUA_USER_META_KEY]) ) {
                 add_user_meta( $user_id, SUA_USER_META_KEY, (int)$_POST[SUA_USER_META_KEY] );
             }
@@ -201,20 +209,17 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
             );
 
         }
-
+        
 
         /**
          * Admin notices:
-         * 1. Error notice if transient not saved
-         * 2. Donate for this plugin, if transient not exists or is expired
+         * - Error notice if transient not saved
+         * - Donate for this plugin, if transient not exists or is expired
          *
-         * @since  2.6
+         * @since  3.9
          * @return void
          */
-        public function custom_admin_notice() {
-
-            // Get Current user
-            global $current_user, $pagenow;
+        public function render_admin_error_notices() {
 
             // Check if there is a GET error
             if ( isset( $_GET['error'] ) ) {
@@ -240,6 +245,22 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
                 
             }
 
+        }
+
+
+        /**
+         * Admin notices:
+         * - Error notice if transient not saved
+         * - Donate for this plugin, if transient not exists or is expired
+         *
+         * @since  2.6
+         * @return void
+         */
+        public function render_admin_donation_notice() {
+
+            // Get Current user
+            global $current_user;
+
             // Get the transient
             $notice_is_expired = get_transient( SUA_TRANSIENT_NAME );
 
@@ -248,37 +269,32 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
                 return;
             }
 
-            // Show the notice, if the page is in private array
-            if ( in_array( $pagenow, $this->notice_enabled_pages ) ) {
+            // Set the nonce field
+            $wp_nonce_field = wp_nonce_field( SUA_TRANSIENT_NAME, '_wpnonce', true, false );
+            $wp_nonce_field = preg_replace( '/id=("|\').*?("|\')/', '', $wp_nonce_field );
+            ?>
 
-                // Set the nonce field
-                $wp_nonce_field = wp_nonce_field( SUA_TRANSIENT_NAME, '_wpnonce', true, false );
-                $wp_nonce_field = preg_replace( '/id=("|\').*?("|\')/', '', $wp_nonce_field );
-                ?>
+            <div class="notice notice-info">
+                <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
+                    <p>
+                        <?php
+                        printf(
+                            __( 'Dear <strong>%s</strong>,<br />thank you for using my plugin <a href="%s" title="Simple User Avatar" target="_blank" rel="noopener">Simple User Avatar</a>! To <strong>support</strong> the development, also in the future, I invite you to <strong>support me</strong>. Even a small amount, such as <strong>1$</strong> for one coffee &#x2615, will be greatly appreciated.<br />Best regards, Matteo.', 'simple-user-avatar' ),
+                            sanitize_text_field( $current_user->display_name ),
+                            esc_url( $this->plugin_public_permalink )
+                        );
+                        ?>
+                    </p>
+                    <p>
+                        <a href="<?php echo esc_url( $this->donation_permalink ); ?>" class="button button-primary" target="_blank" rel="noopener"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
+                        <button type="submit" class="button"><?php printf( __('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration ); ?></button>
+                    </p>
+                    <input type="hidden" name="action" value="close_notice" />
+                    <?php echo $wp_nonce_field; ?>
+                </form>
+            </div>
 
-                <div class="notice notice-info">
-                    <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
-                        <p>
-                            <?php
-                            printf(
-                                __( 'Dear <strong>%s</strong>,<br />thank you for using my plugin <a href="%s" title="Simple User Avatar" target="_blank" rel="noopener">Simple User Avatar</a>! To <strong>support</strong> the development, also in the future, I invite you to <strong>support me</strong>. Even a small amount, such as <strong>1$</strong> for one coffee &#x2615, will be greatly appreciated.<br />Best regards, Matteo.', 'simple-user-avatar' ),
-                                sanitize_text_field( $current_user->display_name ),
-                                esc_url( $this->plugin_public_permalink )
-                            );
-                            ?>
-                        </p>
-                        <p>
-                            <a href="<?php echo esc_url( $this->donation_permalink ); ?>" class="button button-primary" target="_blank" rel="noopener"><?php _e( 'Donate now', 'simple-user-avatar' ); ?></a>
-                            <button type="submit" class="button"><?php printf( __('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration ); ?></button>
-                        </p>
-                        <input type="hidden" name="action" value="close_notice" />
-                        <?php echo $wp_nonce_field; ?>
-                    </form>
-                </div>
-
-                <?php
-
-            }
+            <?php
 
         }
 
