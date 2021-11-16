@@ -223,7 +223,10 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
                     case 'sua_transient_not_set':
                         printf(
                             $notice_error_container,
-                            __( '<p>An error occurred while <strong>saving the transient</strong>. Please make sure this website can save transients.</p>', 'simple-user-avatar' )
+                            sprintf(
+                                __( '<p>An error occurred while <strong>saving the transient</strong>. Please make sure this website can <a href="%s" title="WordPress code reference" target="_blank" rel="noopener">save transients</a>.</p>', 'simple-user-avatar' ),
+                                esc_url( 'https://developer.wordpress.org/reference/functions/set_transient/' )
+                            )
                         );
                         break;
 
