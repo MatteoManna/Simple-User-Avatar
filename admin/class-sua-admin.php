@@ -15,7 +15,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
          */
         private $avatar_size              = 96;
         private $notice_months_expiration = 3;
-        private $users_enabled_pages      = [ 'users.php', 'profile.php', 'user-new.php' ];
+        private $notices_enabled_pages    = [ 'users.php', 'profile.php', 'user-new.php' ];
         private $donation_permalink       = 'https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom';
         private $plugin_public_permalink  = 'https://wordpress.org/plugins/simple-user-avatar/';
 
@@ -38,8 +38,8 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
             // Post call to close notice
             add_action( 'admin_post_close_notice', [ $this, 'post_close_notice' ] );
 
-            // Load actions only in users pages
-            if ( in_array( $pagenow, $this->users_enabled_pages ) ) {
+            // Load functions only if pages are enabled
+            if ( in_array( $pagenow, $this->notices_enabled_pages ) ) {
 
                 // Admin scripts
                 add_action( 'admin_enqueue_scripts', [ $this, 'custom_admin_enqueue_scripts' ] );
@@ -212,9 +212,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
         
 
         /**
-         * Admin notices:
-         * - Error notice if transient not saved
-         * - Donate for this plugin, if transient not exists or is expired
+         * Admin notices for errors
          *
          * @since  3.9
          * @return void
@@ -249,9 +247,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
 
 
         /**
-         * Admin notices:
-         * - Error notice if transient not saved
-         * - Donate for this plugin, if transient not exists or is expired
+         * Admin notice for donations, if transient not exists or is expired
          *
          * @since  2.6
          * @return void
