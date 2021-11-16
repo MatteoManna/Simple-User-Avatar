@@ -99,10 +99,12 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) :
             $md5_user_email = md5( $user_email );
 
             // SSL Gravatar URL
-            $url = "https://secure.gravatar.com/avatar/{$md5_user_email}.jpg";
+            $url = 'https://secure.gravatar.com/avatar/' . $md5_user_email;
 
-            // Add size
+            // Add query args
             $url = add_query_arg( 's', $size, $url );
+            $url = add_query_arg( 'd', 'mm', $url );
+            $url = add_query_arg( 'r', 'g', $url );
 
             return esc_url( $url );
 

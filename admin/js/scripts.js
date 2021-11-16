@@ -29,7 +29,7 @@
 	 *
 	 * @since   3.6
 	 */
-	function updateAttachment( attachmentSrc = '', attachmentSrcSet = '', attachmentId = null, isUpdate = true ) {
+	function updateAttachment( attachmentSrc = '', attachmentSrcSet = '', attachmentId = null ) {
 
 		// Change the image attributes
 		elAttachmentAvatar.attr({
@@ -40,24 +40,9 @@
 		// Set attachment ID value
 		elAttachmentId.val( attachmentId === null ? '' : parseInt( attachmentId ) );
 
-		// Check if is an "update" or a "remove"
-		if ( isUpdate === true ) {
-
-			// Hide the description
-			elAttachmentDesc.addClass( 'hidden' );
-
-			// Show remove button
-			elButtonRemove.removeClass( 'hidden' );
-
-		} else {
-
-			// Show the description
-			elAttachmentDesc.removeClass( 'hidden' );
-
-			// Hide remove button
-			elButtonRemove.addClass( 'hidden' );
-
-		}
+		// Toggle class hidden
+		elAttachmentDesc.toggleClass( 'hidden' );
+		elButtonRemove.toggleClass( 'hidden' );
 	
 	}
 
@@ -98,7 +83,7 @@
 			.on( 'click', tagButtonRemove, function() {
 
 				// Update Avatar
-				updateAttachment( defaultSrc, defaultSrcSet, null, false );
+				updateAttachment( defaultSrc, defaultSrcSet, null );
 
 			})
 			.on( 'click', tagAttachmentAvatar, function() {
