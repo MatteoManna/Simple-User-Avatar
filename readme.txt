@@ -4,7 +4,7 @@ Contributors: matteomanna
 Donate link: https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
-Tested up to: 5.8
+Tested up to: 5.9
 Stable tag: 3.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -51,7 +51,8 @@ No, it's really simple. Add/Remove buttons, stop.
 == Changelog ==
 
 = 3.9 =
-* Release Date - 17 November 2021
+* Release Date - 26 January 2022
+* Support for WordPress 5.9
 * When an attachment is deleted, the user's avatar is deleted
 * An error appears if the transient is not set
 
