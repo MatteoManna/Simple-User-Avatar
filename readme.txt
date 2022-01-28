@@ -50,6 +50,10 @@ No, it's really simple. Add/Remove buttons, stop.
 
 == Changelog ==
 
+= 4.0 =
+* Release Date - 28 January 2022
+* Avatar now can be changed for all users
+
 = 3.9 =
 * Release Date - 26 January 2022
 * Support for WordPress 5.9

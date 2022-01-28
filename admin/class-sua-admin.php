@@ -15,7 +15,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
          */
         private $avatar_size                = 96;
         private $notice_months_expiration   = 3;
-        private $notices_enabled_pages      = [ 'users.php', 'profile.php', 'user-new.php' ];
+        private $notices_enabled_pages      = [ 'users.php', 'profile.php', 'user-new.php', 'user-edit.php' ];
         private $donation_public_permalink  = 'https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom';
         private $reference_public_permalink = 'https://developer.wordpress.org/reference/functions/set_transient/';
         private $plugin_public_permalink    = 'https://wordpress.org/plugins/simple-user-avatar/';
