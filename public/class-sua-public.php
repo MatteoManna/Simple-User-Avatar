@@ -51,22 +51,23 @@ if ( !class_exists('SimpleUserAvatar_Public') ) {
 
             // If is an object
             } elseif ( is_object($id_or_email) ) {
-                // If this is an ID
-                if (isset( $id_or_email->ID) && is_numeric($id_or_email->ID) ) {
-                        $user_id = (int)$id_or_email->ID;
+            
+                // If is an ID
+                if ( isset($id_or_email->ID) && is_numeric($id_or_email->ID) ) {
+                    $user_id = (int)$id_or_email->ID;
                 // If this is an Comment Object
                 } elseif ( isset($id_or_email->comment_author_email) ) {
-                        $user = get_user_by( 'email', $id_or_email->comment_author_email );
+                    $user = get_user_by( 'email', $id_or_email->comment_author_email );
 
-                        // If user doesn't exists or this is not an ID
-                        if ( !isset($user->ID) || !is_numeric($user->ID) ) {
-                                return $avatar;
-                        }
-
-                        $user_id = (int)$user->ID;
-                }else{
+                    // If user doesn't exists or this is not an ID
+                    if ( !isset($user->ID) || !is_numeric($user->ID) ) {
                         return $avatar;
-                }             
+                    }
+
+                    $user_id = (int)$user->ID;
+                } else {
+                    return $avatar;
+                }
             }
 
             // Get attachment ID from user meta
