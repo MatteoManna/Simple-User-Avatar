@@ -15,7 +15,7 @@
 
 // Injection prevention
 if ( !defined('ABSPATH') ) {
-    exit;
+  exit;
 }
 
 /**

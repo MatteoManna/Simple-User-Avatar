@@ -263,7 +263,7 @@ if ( !class_exists('SimpleUserAvatar_Admin') ) {
 
       // Check the return of transient, if it's okay empty return
       if ( $notice_is_expired !== false && is_numeric($notice_is_expired) && $notice_is_expired == 1 ) {
-          return;
+        return;
       }
 
       // Set the nonce field
