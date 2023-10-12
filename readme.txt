@@ -4,8 +4,8 @@ Contributors: matteomanna
 Donate link: https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom
 Tags: avatar, user, picture, gravatar, theme, media library
 Requires at least: 4.0
-Tested up to: 6.1
-Stable tag: 4.2
+Tested up to: 6.3
+Stable tag: 4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,11 @@ No, it's really simple. Add/Remove buttons, stop.
 
 
 == Changelog ==
+
+= 4.3 =
+* Release Date - 12 October 2023
+* Support for WordPress 6.3
+* Donation notification disabled for six months
 
 = 4.2 =
 * Release Date - 28 December 2022
