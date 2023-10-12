@@ -54,7 +54,7 @@ No, it's really simple. Add/Remove buttons, stop.
 * Release Date - 12 October 2023
 * Support for WordPress 6.3
 * Admin CSS written in SCSS
-* Donation notification disabled for six months
+* Donation notification disabled for twelve months
 
 = 4.2 =
 * Release Date - 28 December 2022
