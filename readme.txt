@@ -53,6 +53,7 @@ No, it's really simple. Add/Remove buttons, stop.
 = 4.3 =
 * Release Date - 12 October 2023
 * Support for WordPress 6.3
+* Admin CSS written in SCSS
 * Donation notification disabled for six months
 
 = 4.2 =

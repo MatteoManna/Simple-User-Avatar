@@ -24,15 +24,15 @@ if ( !defined('ABSPATH') ) {
  * @since 2.8
  */
 if ( !defined('SUA_PLUGIN_VERSION') ) {
-    define( 'SUA_PLUGIN_VERSION', 4.3 );
+  define( 'SUA_PLUGIN_VERSION', 4.3 );
 }
 
 if ( !defined('SUA_USER_META_KEY') ) {
-    define( 'SUA_USER_META_KEY', 'mm_sua_attachment_id' );
+  define( 'SUA_USER_META_KEY', 'mm_sua_attachment_id' );
 }
 
 if ( !defined('SUA_TRANSIENT_NAME') ) {
-    define( 'SUA_TRANSIENT_NAME', 'sua_notice_is_expired' );
+  define( 'SUA_TRANSIENT_NAME', 'sua_notice_is_expired' );
 }
 
 /**
@@ -43,5 +43,5 @@ if ( !defined('SUA_TRANSIENT_NAME') ) {
 require_once plugin_dir_path( __FILE__ ) . 'public/class-sua-public.php';
 
 if ( is_admin() ) {
-    require_once plugin_dir_path( __FILE__ ) . 'admin/class-sua-admin.php';
+  require_once plugin_dir_path( __FILE__ ) . 'admin/class-sua-admin.php';
 }

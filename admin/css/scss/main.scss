@@ -1,0 +1,42 @@
+@import 'variables';
+
+/* Set style for the avatar picture */
+.sua-attachment-avatar {
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Buttons container */
+.sua-btn-container {
+  margin-top: .8rem;
+
+  /* Set style for buttons */
+  #btn-media-remove {
+    color: $white;
+    border-color: $red3;
+    background: $red1;
+
+    &:hover {
+      background: $red2;
+    }
+  }
+
+  #btn-media-remove {
+    &:focus {
+      box-shadow: 0 0 0 1px $red3;
+    }
+  }
+
+}
+
+/* Hide WordPress default avatar */
+.user-profile-picture {
+  display: none;
+}
+
+/* Fix the square size of avatars in /wp-admin */
+img {
+  &.avatar {
+    object-fit: cover;
+  }
+}
