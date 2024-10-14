@@ -32,6 +32,7 @@ if (!class_exists('SimpleUserAvatar_Public')) {
     public function get_avatar_filter($avatar, $id_or_email, $size, $default_value, $alt) {
       global $pagenow;
 
+      // If pagenow its "Discussion" in WP Admin
       if ($pagenow === 'options-discussion.php') {
         return $avatar;
       }
