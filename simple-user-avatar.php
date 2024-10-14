@@ -3,7 +3,7 @@
  * Plugin Name:       Simple User Avatar
  * Plugin URI:        https://wordpress.org/plugins/simple-user-avatar/
  * Description:       Add a <strong>user avatar</strong> using images from your Media Library.
- * Version:           4.4
+ * Version:           4.5
  * Requires at least: 4.0
  * Requires PHP:      7.3
  * Author:            Matteo Manna
@@ -14,7 +14,7 @@
  */
 
 // Injection prevention
-if ( !defined('ABSPATH') ) {
+if (!defined('ABSPATH')) {
   exit;
 }
 
@@ -23,16 +23,16 @@ if ( !defined('ABSPATH') ) {
  *
  * @since 2.8
  */
-if ( !defined('SUA_PLUGIN_VERSION') ) {
-  define( 'SUA_PLUGIN_VERSION', 4.4 );
+if (!defined('SUA_PLUGIN_VERSION')) {
+  define('SUA_PLUGIN_VERSION', 4.5);
 }
 
-if ( !defined('SUA_USER_META_KEY') ) {
-  define( 'SUA_USER_META_KEY', 'mm_sua_attachment_id' );
+if (!defined('SUA_USER_META_KEY')) {
+  define('SUA_USER_META_KEY', 'mm_sua_attachment_id');
 }
 
-if ( !defined('SUA_TRANSIENT_NAME') ) {
-  define( 'SUA_TRANSIENT_NAME', 'sua_notice_is_expired' );
+if (!defined('SUA_TRANSIENT_NAME')) {
+  define('SUA_TRANSIENT_NAME', 'sua_notice_is_expired');
 }
 
 /**
@@ -40,8 +40,8 @@ if ( !defined('SUA_TRANSIENT_NAME') ) {
  *
  * @since 2.5
  */
-require_once plugin_dir_path( __FILE__ ) . 'public/class-sua-public.php';
+require_once plugin_dir_path(__FILE__) . 'public/class-sua-public.php';
 
-if ( is_admin() ) {
-  require_once plugin_dir_path( __FILE__ ) . 'admin/class-sua-admin.php';
+if (is_admin()) {
+  require_once plugin_dir_path(__FILE__) . 'admin/class-sua-admin.php';
 }

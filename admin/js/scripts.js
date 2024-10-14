@@ -1,4 +1,4 @@
-(function( $ ) {
+(function($) {
 
 	'use strict';
 
@@ -10,14 +10,14 @@
 	var tagButtonRemove     = '#btn-media-remove';
 
 	// jQuery elements by tags
-	var elAttachmentId      = $( tagAttachmentId );
-	var elAttachmentAvatar  = $( tagAttachmentAvatar) ;
-	var elAttachmentDesc    = $( tagAttachmentDesc );
-	var elButtonAdd         = $( tagButtonAdd );
-	var elButtonRemove      = $( tagButtonRemove );
+	var elAttachmentId      = $(tagAttachmentId);
+	var elAttachmentAvatar  = $(tagAttachmentAvatar);
+	var elAttachmentDesc    = $(tagAttachmentDesc);
+	var elButtonAdd         = $(tagButtonAdd);
+	var elButtonRemove      = $(tagButtonRemove);
 
 	// WordPress default media sizes
-	var WPMediaSizes        = [ 'full', 'large', 'medium', 'thumbnail' ];
+	var WPMediaSizes        = ['full', 'large', 'medium', 'thumbnail'];
 
 	// Get default Src and default SrcSet
 	var defaultSrc          = sua_obj.default_avatar_src;
@@ -30,7 +30,7 @@
 	 * @since  3.6
 	 * @return void
 	 */
-	function updateAttachment( attachmentSrc = '', attachmentSrcSet = '', attachmentId = null ) {
+	function updateAttachment(attachmentSrc = '', attachmentSrcSet = '', attachmentId = null) {
 
 		// Change the image attributes
 		elAttachmentAvatar.attr({
@@ -39,11 +39,11 @@
 		});
 		
 		// Set attachment ID value
-		elAttachmentId.val( attachmentId === null ? '' : parseInt( attachmentId ) );
+		elAttachmentId.val(attachmentId === null ? '' : parseInt(attachmentId));
 
 		// Toggle class hidden
-		elAttachmentDesc.toggleClass( 'hidden' );
-		elButtonRemove.toggleClass( 'hidden' );
+		elAttachmentDesc.toggleClass('hidden');
+		elButtonRemove.toggleClass('hidden');
 	
 	}
 
@@ -57,43 +57,43 @@
 
 		// Set click functions
 		$(document)
-			.on( 'click', tagButtonAdd, function() {
+			.on('click', tagButtonAdd, function() {
 
 				// Open WordPress Media Library
 				wp.media.editor.open();
 
 				// WP Media Editor function
-				wp.media.editor.send.attachment = function( props, attachment ) {
+				wp.media.editor.send.attachment = function(props, attachment) {
 
 					// Set attachment Src to default URL
 					var attachmentSrc = attachment.url;
 
 					// If there is a smaller version I use it
-					for ( const WPMediaSize of WPMediaSizes ) {
-						if ( typeof attachment.sizes[WPMediaSize] !== 'undefined' && typeof attachment.sizes[WPMediaSize].url !== 'undefined' ) {
+					for (const WPMediaSize of WPMediaSizes) {
+						if (typeof attachment.sizes[WPMediaSize] !== 'undefined' && typeof attachment.sizes[WPMediaSize].url !== 'undefined') {
 							attachmentSrc = attachment.sizes[WPMediaSize].url;
 						}
 					}
 
 					// Update Attachment
-					updateAttachment( attachmentSrc, attachmentSrc, attachment.id );
+					updateAttachment(attachmentSrc, attachmentSrc, attachment.id);
 
 				}
 
 			})
-			.on( 'click', tagButtonRemove, function() {
+			.on('click', tagButtonRemove, function() {
 
 				// Update Attachment
-				updateAttachment( defaultSrc, defaultSrcSet );
+				updateAttachment(defaultSrc, defaultSrcSet);
 
 			})
-			.on( 'click', tagAttachmentAvatar, function() {
+			.on('click', tagAttachmentAvatar, function() {
 
 				// Trigger to add button
-				elButtonAdd.trigger( 'click' );
+				elButtonAdd.trigger('click');
 
 			});
 
 	});
 
-})( jQuery );
+})(jQuery);
