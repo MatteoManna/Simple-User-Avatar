@@ -2,7 +2,7 @@
 
 Contributors: matteomanna
 Donate link: https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom
-Tags: avatar, user, picture, gravatar, theme, media library
+Tags: avatar, user, picture, gravatar, media library
 Requires at least: 4.0
 Tested up to: 6.6
 Stable tag: 4.5
