@@ -30,9 +30,11 @@ if (!class_exists('SimpleUserAvatar_Public')) {
      * @return string
      */
     public function get_avatar_filter($avatar, $id_or_email, $size, $default_value, $alt) {
+
+      // Global $pagenow
       global $pagenow;
 
-      // If pagenow its "Discussion" in WP Admin
+      // If pagenow is "Discussion" in WP Admin return default avatar
       if ($pagenow === 'options-discussion.php') {
         return $avatar;
       }
@@ -60,9 +62,13 @@ if (!class_exists('SimpleUserAvatar_Public')) {
       
         // If is an ID
         if (isset($id_or_email->ID) && is_numeric($id_or_email->ID)) {
+
           $user_id = (int)$id_or_email->ID;
-        // If this is an Comment Object
+        
+          // If this is an Comment Object
         } elseif (isset($id_or_email->comment_author_email)) {
+
+          // Get user by Email
           $user = get_user_by('email', $id_or_email->comment_author_email);
 
           // If user doesn't exists or this is not an ID

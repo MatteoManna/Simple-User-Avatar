@@ -23,6 +23,7 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
 
     public function __construct() {
 
+      // Global $pagenow
       global $pagenow;
 
       // HTML render profile fields
