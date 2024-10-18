@@ -1,6 +1,6 @@
 # Simple User Avatar
 
-_Simple User Avatar_ is a [WordPress](https://wordpress.org) plugin that help users to add or remove their avatar using images from his **Media Library**.
+[Simple User Avatar](https://wordpress.org/plugins/simple-user-avatar/) is a [WordPress](https://wordpress.org) plugin that help users to add or remove their avatar using images from his **Media Library**.
 
 ## Installation
 
@@ -8,11 +8,14 @@ _Simple User Avatar_ is a [WordPress](https://wordpress.org) plugin that help us
 2. Activate the plugin through the **Plugins** menu in [WordPress](https://wordpress.org);
 3. Now you have a new option in the user page;
 
-## Translate into your language
+## Contributing
+[Pull requests](https://github.com/MatteoManna/Simple-User-Avatar/pulls) are welcome. For major changes please open an issue first to discuss what you would like to change.
 
-You can help us to translate this plugin to your language going to [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/simple-user-avatar/).
+## Translate
 
-## Need support?
+You can help to translate this plugin to your language going to [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/simple-user-avatar/).
+
+## Support
 
 If you need support you can write a **new topic** on [WordPress Support](https://wordpress.org/support/plugin/simple-user-avatar/). The author [Matteo Manna](https://www.linkedin.com/in/matteomanna/) will reply to you as soon as possible.
 
