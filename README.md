@@ -14,8 +14,8 @@ You can help us to translate this plugin to your language going to [Translating 
 
 ## Need support?
 
-If you need support you can write a **new topic** on [WordPress Support](https://wordpress.org/support/plugin/simple-user-avatar/). The author [Matteo Manna](https://matteomanna.com) will reply to you as soon as possible.
+If you need support you can write a **new topic** on [WordPress Support](https://wordpress.org/support/plugin/simple-user-avatar/). The author [Matteo Manna](https://www.linkedin.com/in/matteomanna/) will reply to you as soon as possible.
 
 ## Donate
 
-_Simple User Avatar_ is an open source software. If you want to offer a coffee :coffee: to the author [Matteo Manna](https://matteomanna.com) you can donate using [PayPal](https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom).
+_Simple User Avatar_ is an open source software. If you want to offer a coffee :coffee: to the author [Matteo Manna](https://www.linkedin.com/in/matteomanna/) you can donate using [PayPal](https://www.paypal.com/donate/?cmd=_donations&business=matteomanna87%40gmail%2ecom).
