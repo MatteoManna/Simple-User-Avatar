@@ -318,7 +318,7 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
         $expiration = (86400 * 30) * $this->notice_months_expiration;
 
         // Set the transient but, if an error has occurred, add query arg at redirect URL
-        if (set_transient($transient, $value, $expiration) === fals) {
+        if (set_transient($transient, $value, $expiration) === false) {
           $redirect_url = add_query_arg('error', 'sua_transient_not_set', $redirect_url);
         }
 
