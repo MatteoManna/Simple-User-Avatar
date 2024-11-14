@@ -100,9 +100,7 @@ if (!class_exists('SimpleUserAvatar_Public')) {
       $attachment_srcset = wp_get_attachment_image_srcset($attachment_id);
 
       // Override WordPress srcset
-      if($attachment_srcset !== false) {
-        $avatar = preg_replace('/srcset=("|\').*?("|\')/', "srcset='{$attachment_srcset}'", $avatar);
-      }
+      $avatar = preg_replace('/srcset=("|\').*?("|\')/', $attachment_srcset !== false ? "srcset='{$attachment_srcset}'" : "", $avatar);
 
       return $avatar;
 
