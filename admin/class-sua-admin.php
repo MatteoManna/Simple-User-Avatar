@@ -1,4 +1,9 @@
 <?php
+// Injection prevention
+if (!defined('ABSPATH')) {
+  exit;
+}
+
 if (!class_exists('SimpleUserAvatar_Admin')) {
 
   /**
@@ -139,14 +144,14 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
         <tbody>
           <tr>
             <th scope="row">
-              <label for="btn-media-add"><?php _e('Profile picture', 'simple-user-avatar'); ?></label>
+              <label for="btn-media-add"><?php esc_html_e('Profile picture', 'simple-user-avatar'); ?></label>
             </th>
             <td>
               <?php echo get_avatar($user->ID, $this->avatar_size, '', $user->display_name, ['class' => 'sua-attachment-avatar']); ?>
-              <p class="description <?php if (!empty($attachment_id)) echo 'hidden'; ?>" id="sua-attachment-description"><?php _e("You're seeing the default profile picture.", 'simple-user-avatar'); ?></p>
+              <p class="description <?php if (!empty($attachment_id)) echo 'hidden'; ?>" id="sua-attachment-description"><?php esc_html_e("You're seeing the default profile picture.", 'simple-user-avatar'); ?></p>
               <div class="sua-btn-container">
-                <button type="button" class="button" id="btn-media-add"><?php _e('Select', 'simple-user-avatar'); ?></button>
-                <button type="button" class="button <?php if (empty($attachment_id)) echo 'hidden'; ?>" id="btn-media-remove"><?php _e('Remove', 'simple-user-avatar'); ?></button>
+                <button type="button" class="button" id="btn-media-add"><?php esc_html_e('Select', 'simple-user-avatar'); ?></button>
+                <button type="button" class="button <?php if (empty($attachment_id)) echo 'hidden'; ?>" id="btn-media-remove"><?php esc_html_e('Remove', 'simple-user-avatar'); ?></button>
               </div>
             </td>
           </tr>
@@ -154,7 +159,7 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
       </table>
 
       <!-- Hidden attachment ID -->
-      <input type="hidden" name="<?php echo SUA_USER_META_KEY; ?>" value="<?php echo $attachment_id; ?>" />
+      <input type="hidden" name="<?php echo esc_attr(SUA_USER_META_KEY); ?>" value="<?php echo esc_attr($attachment_id); ?>" />
 
       <?php
 
@@ -169,6 +174,9 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
      */
     public function update_custom_user_profile_fields($user_id) {
 
+      // Optimize var $post_id
+      $post_id = $_POST[SUA_USER_META_KEY];
+
       // If user don't have permissions
       if (!current_user_can('edit_user', $user_id)) {
         return false;
@@ -177,9 +185,14 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
       // Delete old user meta
       delete_user_meta($user_id, SUA_USER_META_KEY);
 
+      // If user don't have permissions
+      if (get_post_field('post_author', $post_id) != $user_id) {
+        return false;
+      }
+
       // Validate POST data and, if is ok, add it
-      if (isset($_POST[SUA_USER_META_KEY]) && is_numeric($_POST[SUA_USER_META_KEY])) {
-        add_user_meta($user_id, SUA_USER_META_KEY, (int)$_POST[SUA_USER_META_KEY]);
+      if (isset($post_id) && is_numeric($post_id)) {
+        add_user_meta($user_id, SUA_USER_META_KEY, (int)$post_id);
       }
 
       return true;
@@ -195,20 +208,15 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
      */
     public function custom_delete_attachment($post_id) {
 
-      global $wpdb;
+      $users = get_users([
+        'meta_key'   => SUA_USER_META_KEY,
+        'meta_value' => (int)$post_id,
+        'fields'     => 'ids',
+      ]);
 
-      // Delete all user meta where deleted attachment post ID exists
-      $wpdb->delete(
-        $wpdb->usermeta,
-        [
-          'meta_key'   => SUA_USER_META_KEY,
-          'meta_value' => (int)$post_id
-        ],
-        [
-          '%s',
-          '%d'
-        ]
-      );
+      foreach ($users as $user_id) {
+        delete_user_meta( $user_id, SUA_USER_META_KEY, (int)$post_id );
+      }
 
     }
     
@@ -235,6 +243,7 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
             printf(
               $notice_error_container,
               sprintf(
+                /* translators: %s: URL of the website */
                 __('<p>An error occurred while <strong>saving the transient</strong>. Please make sure this website can <a href="%s" title="WordPress code reference" target="_blank" rel="noopener">save transients</a>.</p>', 'simple-user-avatar'),
                 esc_url($this->reference_public_permalink)
               )
@@ -273,19 +282,24 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
       ?>
 
       <div class="notice notice-info">
-        <form method="post" action="<?php echo admin_url('admin-post.php'); ?>">
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
           <p>
             <?php
             printf(
-              __( 'Dear <strong>%s</strong>, thank you for using my plugin <a href="%s" title="Simple User Avatar" target="_blank" rel="noopener">Simple User Avatar</a>! Even a small amount, such as <strong>1$</strong> for one coffee &#x2615 will be greatly appreciated to <strong>support</strong> the development of the plugin in the future. Best regards, Matteo.', 'simple-user-avatar' ),
+              /* translators: %1$s: User's display name, %2$s: Plugin URL */
+              __( 'Dear <strong>%1$s</strong>, thank you for using my plugin <a href="%2$s" title="Simple User Avatar" target="_blank" rel="noopener">Simple User Avatar</a>! Even a small amount, such as <strong>1$</strong> for one coffee &#x2615 will be greatly appreciated to <strong>support</strong> the development of the plugin in the future. Best regards, Matteo.', 'simple-user-avatar' ),
               sanitize_text_field($current_user->display_name),
               esc_url($this->plugin_public_permalink)
             );
             ?>
           </p>
           <p>
-            <a href="<?php echo esc_url($this->donation_public_permalink); ?>" class="button button-primary" target="_blank" rel="noopener"><?php _e('Donate now', 'simple-user-avatar'); ?></a>
-            <button type="submit" class="button"><?php printf(__('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration); ?></button>
+            <a href="<?php echo esc_url($this->donation_public_permalink); ?>" class="button button-primary" target="_blank" rel="noopener"><?php esc_html_e('Donate now', 'simple-user-avatar'); ?></a>
+            <button type="submit" class="button">
+              <?php
+              /* translators: %s: number of months */
+              printf(__('Hide for %d months', 'simple-user-avatar' ), $this->notice_months_expiration); ?>
+            </button>
           </p>
           <input type="hidden" name="action" value="hide_notice" />
           <?php echo $wp_nonce_field; ?>

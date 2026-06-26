@@ -1,4 +1,9 @@
 <?php
+// Injection prevention
+if (!defined('ABSPATH')) {
+  exit;
+}
+
 if (!class_exists('SimpleUserAvatar_Public')) {
 
   /**
