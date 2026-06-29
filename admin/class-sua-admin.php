@@ -175,23 +175,22 @@ if (!class_exists('SimpleUserAvatar_Admin')) {
     public function update_custom_user_profile_fields($user_id) {
 
       // Optimize var $post_id
-      $post_id = $_POST[SUA_USER_META_KEY];
+      $post_id = isset($_POST[SUA_USER_META_KEY]) ? $_POST[SUA_USER_META_KEY] : '';
 
-      // If user don't have permissions
-      if (!current_user_can('edit_user', $user_id)) {
+      // Only admins can edit other users; non-admins can edit only themselves
+      if (!current_user_can('manage_options') && get_current_user_id() !== (int)$user_id) {
         return false;
       }
 
       // Delete old user meta
       delete_user_meta($user_id, SUA_USER_META_KEY);
 
-      // If user don't have permissions
-      if (get_post_field('post_author', $post_id) != $user_id) {
-        return false;
-      }
-
       // Validate POST data and, if is ok, add it
       if (isset($post_id) && is_numeric($post_id)) {
+        if (get_post_type($post_id) !== 'attachment' || get_post_status($post_id) !== 'publish') {
+          return false;
+        }
+
         add_user_meta($user_id, SUA_USER_META_KEY, (int)$post_id);
       }
 
